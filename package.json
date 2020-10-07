@@ -1,7 +1,7 @@
 {
-  "name": "template-react",
+  "name": "odevne",
   "version": "1.0.0",
-  "description": "Template For React Projects",
+  "description": "Öğrenciler İçin Ödev Sitesi",
   "main": "index.js",
   "scripts": {
     "test": "jest",
