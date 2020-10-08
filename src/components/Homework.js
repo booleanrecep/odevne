@@ -14,7 +14,7 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Grid from "@material-ui/core/Grid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import a1 from "../images/svg/Asset1.svg";
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
 }));
-RecipeReviewCard.defaultProps = {
+Homework.defaultProps = {
   avatar: ".5/A",
   topic: "Konu 1",
   startDate: "Eylül 14, 2016",
@@ -56,7 +56,7 @@ RecipeReviewCard.defaultProps = {
   contentDesc: `Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
   `,
 };
-export default function RecipeReviewCard({
+export default function Homework({
   avatar,
   topic,
   startDate,
@@ -75,56 +75,61 @@ export default function RecipeReviewCard({
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
-        }
-        title={topic}
-        // subheader={` Başlama Tarihi: ${startDate} Bitiş Tarihi: ${endDate} `}
-        subheader={
-          <Typography variant="body2" color="textSecondary" component="p">
-            {` Başlama Tarihi: ${startDate}`}
-            <br />
-            {` Başlama Tarihi: ${startDate}`}
-          </Typography>
-        }
-      />
+    <Grid item xs={12} sm={6} lg={3}>
+      <Card className={classes.root}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {avatar}
+            </Avatar>
+          }
+          title={topic}
+          // subheader={` Başlama Tarihi: ${startDate} Bitiş Tarihi: ${endDate} `}
+          subheader={
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Başlama Tarihi: ${startDate}`}
+              <br />
+              {`Bitiş Tarihi : ${endDate}`}
+            </Typography>
+          }
+        />
 
-      <CardMedia className={classes.media} image={img} title={imgTitle} />
-      {/* <img src={a1}/> */}
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {hmIntro}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardMedia
+          className={classes.media}
+          image={img}
+          title={imgTitle}
+        ></CardMedia>
         <CardContent>
-          <Typography paragraph>{contentTitle}</Typography>
-
-          <Typography paragraph>{contentDesc}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {hmIntro}
+          </Typography>
         </CardContent>
-      </Collapse>
-    </Card>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>{contentTitle}</Typography>
+
+            <Typography paragraph>{contentDesc}</Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </Grid>
   );
 }
