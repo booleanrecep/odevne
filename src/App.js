@@ -1,13 +1,20 @@
 import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
-
-import Grid from "@material-ui/core/Grid";
+import { Particle } from "./components/Particles";
+// import Grid from "@material-ui/core/Grid";
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import Tooltip from "@material-ui/core/Tooltip";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import Fab from "@material-ui/core/Fab";
+// import Tooltip from "@material-ui/core/Tooltip";
+import { Tooltip, Grid, Fab, Typography } from "@material-ui/core";
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  useRouteMatch,
+  Link,
+} from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { data } from "./data";
@@ -15,6 +22,10 @@ import { data } from "./data";
 import Appbar from "./components/Appbar";
 
 import a from "./images/favicon.png";
+import { Home } from "@material-ui/icons";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
+
 const useStyles = makeStyles((theme) => ({
   search: {
     position: "absolute",
@@ -73,20 +84,75 @@ export default function App() {
         </Helmet>
         <Appbar />
         <Grid container spacing={3}>
-          {data.map((dt) => {
-            return <Homework {...dt.homework} />;
-          })}
-          {/* {dneClasses.map((dt) => {
-            return (
-                <DneClass {...dt} />
-            );
-          })} */}
+          <Switch>
+            <Route exact path="/">
+              {data.map((dt) => {
+                return <DneClass {...dt} />;
+              })}
+              <Grid
+                item
+                xs={12}
+                style={{
+                  position: "relative",
+                  bottom: "0",
+                  marginTop: "1em",
+                  marginBottom: "0",
+                  height: "7em",
+                  width: "100%",
+                  backgroundColor: "#BEE6E2",
+                }}
+              >
+                <Typography color="textSecondary">
+                  {`Hayatta en doğru yol gösterici bilimdir`}
+                </Typography>
+                <br />
+                <Typography
+                  style={{ position: "absolute", left: "20%" }}
+                  color="textSecondary"
+                >
+                  {` Mustafa Kemal Atatürk`}
+                </Typography>
+                {/* <Particle /> */}
+              </Grid>
+            </Route>
+            {data.map(({ dneClass, homework }) => {
+              return (
+                <Route exact path={`/odevler/${dneClass.substring(0, 3)}`}>
+                  <Link to="/">
+                    <Tooltip
+                      // title={`Boşuna tıklama ${String.fromCodePoint(
+                      //   parseInt("1F981", 16)
+                      // )}`}
+                      title="Anasayfa"
+                      aria-label="anasayfa"
+                      className={classes.absolute}
+                    >
+                      <Fab style={{ position: "fixed" }} color="secondary">
+                        <ArrowBackIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Link>
+                  {homework.map((hw) => (
+                    <Homework {...hw} />
+                  ))}
+                </Route>
+              );
+            })}
+          </Switch>
         </Grid>
-        <Tooltip title="Add" aria-label="add" className={classes.absolute}>
-          <Fab color="secondary">
-            <AddIcon />
-          </Fab>
-        </Tooltip>
+        <Route exact path="/create">
+          <Tooltip
+            title={`Boşuna tıklama ${String.fromCodePoint(
+              parseInt("1F981", 16)
+            )}`}
+            aria-label="add"
+            className={classes.absolute}
+          >
+            <Fab color="secondary">
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </Route>
       </div>
     </Router>
   );

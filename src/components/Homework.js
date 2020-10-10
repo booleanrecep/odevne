@@ -16,7 +16,12 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import a1 from "../images/svg/Asset1.svg";
+import TimelapseRoundedIcon from "@material-ui/icons/TimelapseRounded";
+import green from "@material-ui/core/colors/green";
+import Badge from "@material-ui/core/Badge";
+import Calender from "./Calender";
+import "react-day-picker/lib/style.css";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -69,14 +74,14 @@ export default function Homework({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const [fav, setFav] = React.useState({ favColor: "", favNum: "0" });
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
     <Grid item xs={12} sm={6} lg={3}>
-      <Card className={classes.root}>
+      <Card className={classes.root} key={`${Math.random()}`}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -84,7 +89,6 @@ export default function Homework({
             </Avatar>
           }
           title={topic}
-          // subheader={` Başlama Tarihi: ${startDate} Bitiş Tarihi: ${endDate} `}
           subheader={
             <Typography variant="body2" color="textSecondary" component="p">
               {`Başlama Tarihi: ${startDate}`}
@@ -93,42 +97,78 @@ export default function Homework({
             </Typography>
           }
         />
+        <TimelapseRoundedIcon
+          style={{
+            color: "grey",
+            position: "relative",
+            left: "85%",
+            top: "-3.7em",
+          }}
+        />
 
-        <CardMedia
-          className={classes.media}
-          image={img}
-          title={imgTitle}
-        ></CardMedia>
+        {/* <CardMedia
+            className={classes.media}
+            image={`/${img}`}
+            title={imgTitle}
+          >
+            
+          </CardMedia> */}
+        <div
+          style={{
+            color: "blue",
+            border: "0.1em solid aqua",
+            pointerEvents: "none",
+          }}
+        >
+          <Calender />
+        </div>
+
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
             {hmIntro}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton
+            onClick={() => {
+              setFav((prevState) => ({
+                ...prevState,
+                favColor: prevState.favColor === "red" ? "" : "red",
+                favNum: prevState.favNum === "0" ? +1 : "0",
+              }));
+            }}
+            aria-label="add to favorites"
+          >
+            <Badge badgeContent={fav.favNum} color="primary">
+              <FavoriteIcon style={{ color: fav.favColor }} />
+            </Badge>
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>{contentTitle}</Typography>
 
-            <Typography paragraph>{contentDesc}</Typography>
-          </CardContent>
-        </Collapse>
+          {hmIntro.length >= 120 ? (
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          ) : null}
+        </CardActions>
+        {hmIntro.length >= 120 ? (
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>{contentTitle}</Typography>
+
+              <Typography paragraph>{contentDesc}</Typography>
+            </CardContent>
+          </Collapse>
+        ) : null}
       </Card>
     </Grid>
   );
