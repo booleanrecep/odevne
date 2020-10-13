@@ -3,7 +3,7 @@ import { fade } from "@material-ui/core/styles";
 import Lottie from "react-lottie";
 import AddIcon from "@material-ui/icons/Add";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Appbar from "./components/Appbar";
 import favicon from "./images/favicon.png";
@@ -58,8 +58,12 @@ const styles = (theme) => ({
   },
   absoluteBack: {
     position: "fixed",
-    top: theme.spacing(2),
-    right: theme.spacing(3),
+    top: theme.spacing(1.5),
+    right: theme.spacing(4),
+    // [theme.breakpoints.down("sm")]: {
+    //   top: theme.spacing(3),
+    //   right: theme.spacing(3),
+    // },
   },
   lottie: {
     [theme.breakpoints.down("sm")]: {

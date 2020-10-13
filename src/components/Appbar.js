@@ -80,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: theme.spacing(0.5),
     right: theme.spacing(3),
+    // [theme.breakpoints.down("sm")]: {
+    //   top: theme.spacing(3),
+    //   right: theme.spacing(3),
+    // },
   },
 }));
 
@@ -88,7 +92,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
@@ -102,12 +106,8 @@ export default function PrimarySearchAppBar() {
             <Typography className={classes.title} variant="h6" noWrap>
               DNE ORTAOKULU
               <br />
-              RECEP HOCA ÖDEVLERİ
-            </Typography>
-          ) : (
-            <Typography className={classes.title} variant="h6" noWrap>
-              DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA ÖDEVLERİ
-              {/* <Link to="/create">
+              RECEP HOCA 
+              <Link to="/create">
               
               <Tooltip
                 title="Yeni Ödev Oluştur"
@@ -120,7 +120,25 @@ export default function PrimarySearchAppBar() {
                   )}`}</span>
                 </Fab>
               </Tooltip>
-              </Link> */}
+              </Link>
+            </Typography>
+          ) : (
+            <Typography className={classes.title} variant="h6" noWrap>
+              DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA 
+              <Link to="/create">
+              
+              <Tooltip
+                title="Yeni Ödev Oluştur"
+                aria-label="yeni-odev"
+                className={classes.absoluteTop}
+              >
+                <Fab color="secondary">
+                  <span>{`${String.fromCodePoint(
+                    parseInt("1F4DD", 16)
+                  )}`}</span>
+                </Fab>
+              </Tooltip>
+              </Link>
             </Typography>
           )}
         </Toolbar>

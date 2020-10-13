@@ -153,10 +153,10 @@ class CreateHomework extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={closeIt} color="secondary">
-              Cancel
+              İPTAL
             </Button>
             <Button onClick={this.handleSubmit} color="default">
-              Subscribe
+              EKLE
             </Button>
           </DialogActions>
         </Dialog>
