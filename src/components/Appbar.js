@@ -1,11 +1,17 @@
 import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Avatar,
+  Tooltip,
+  Fab,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-import Avatar from "@material-ui/core/Avatar";
+import { Link } from "react-router-dom";
 
 import recep from "../images/recep.png";
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +76,11 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  absoluteTop: {
+    position: "fixed",
+    top: theme.spacing(0.5),
+    right: theme.spacing(3),
+  },
 }));
 
 export default function PrimarySearchAppBar() {
@@ -96,6 +107,20 @@ export default function PrimarySearchAppBar() {
           ) : (
             <Typography className={classes.title} variant="h6" noWrap>
               DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA ÖDEVLERİ
+              {/* <Link to="/create">
+              
+              <Tooltip
+                title="Yeni Ödev Oluştur"
+                aria-label="yeni-odev"
+                className={classes.absoluteTop}
+              >
+                <Fab color="secondary">
+                  <span>{`${String.fromCodePoint(
+                    parseInt("1F4DD", 16)
+                  )}`}</span>
+                </Fab>
+              </Tooltip>
+              </Link> */}
             </Typography>
           )}
         </Toolbar>

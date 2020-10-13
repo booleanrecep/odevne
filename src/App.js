@@ -1,32 +1,19 @@
 import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import { Particle } from "./components/Particles";
-// import Grid from "@material-ui/core/Grid";
+import { fade } from "@material-ui/core/styles";
+import Lottie from "react-lottie";
+import AddIcon from "@material-ui/icons/Add";
+import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
+import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import Appbar from "./components/Appbar";
+import favicon from "./images/favicon.png";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
-import AddIcon from "@material-ui/icons/Add";
-// import Fab from "@material-ui/core/Fab";
-// import Tooltip from "@material-ui/core/Tooltip";
-import { Tooltip, Grid, Fab, Typography } from "@material-ui/core";
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  useRouteMatch,
-  Link,
-} from "react-router-dom";
-import { Helmet } from "react-helmet";
+import CreateHomework from "./components/CreateHomework";
+import { animations } from "./images/animations/lottie/index";
 
-import { data } from "./data";
-
-import Appbar from "./components/Appbar";
-
-import a from "./images/favicon.png";
-import { Home } from "@material-ui/icons";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import IconButton from "@material-ui/core/IconButton";
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   search: {
     position: "absolute",
     display: "flex",
@@ -69,91 +56,155 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(3),
     right: theme.spacing(3),
   },
-}));
+  absoluteBack: {
+    position: "fixed",
+    top: theme.spacing(2),
+    right: theme.spacing(3),
+  },
+  lottie: {
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "-10em",
+    },
+  },
+});
 
-export default function App() {
-  const classes = useStyles();
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: props.data, open: false };
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
 
-  return (
-    <Router>
-      <div>
-        <Helmet>
-          <link rel="icon" type="image/png" href={a} sizes="16x16" />
-          <meta charSet="utf-8" />
-          <title>ÖDEV NE</title>
-        </Helmet>
-        <Appbar />
-        <Grid container spacing={3}>
-          <Switch>
-            <Route exact path="/">
-              {data.map((dt) => {
-                return <DneClass {...dt} />;
-              })}
-              <Grid
-                item
-                xs={12}
-                style={{
-                  position: "relative",
-                  bottom: "0",
-                  marginTop: "1em",
-                  marginBottom: "0",
-                  height: "7em",
-                  width: "100%",
-                  backgroundColor: "#BEE6E2",
-                }}
-              >
-                <Typography color="textSecondary">
-                  {`Hayatta en doğru yol gösterici bilimdir`}
-                </Typography>
-                <br />
-                <Typography
-                  style={{ position: "absolute", left: "20%" }}
-                  color="textSecondary"
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Router>
+        <div>
+          <Helmet>
+            <link rel="icon" type="image/png" href={favicon} sizes="16x16" />
+            <meta charSet="utf-8" />
+            <title>ÖDEV NE</title>
+          </Helmet>
+          <Appbar />
+          <Grid container spacing={2}>
+            <Switch>
+              <Route exact path="/">
+                {this.state.data.map((dt) => {
+                  return <DneClass {...dt} />;
+                })}
+                <Grid
+                  item
+                  xs={12}
+                  style={{
+                    position: "relative",
+                    padding: "0.5em",
+                    height: "4.7em",
+                    width: "100%",
+                    backgroundColor: "#BEE6E2",
+                  }}
                 >
-                  {` Mustafa Kemal Atatürk`}
-                </Typography>
-                {/* <Particle /> */}
+                  <Typography
+                    color="textSecondary"
+                    style={{ position: "absolute", left: "2%" }}
+                  >
+                    {`Hayatta en doğru yol gösterici bilimdir`}
+                  </Typography>
+                  <br />
+                  <Typography
+                    style={{
+                      position: "absolute",
+                      left: "30%",
+                      marginTop: "0.5em",
+                    }}
+                    color="textSecondary"
+                  >
+                    {` Mustafa Kemal Atatürk`}
+                  </Typography>
+                </Grid>
+              </Route>
+              {this.state.data.map(({ dneClass, homework }) => {
+                return (
+                  <Route exact path={`/odevler/${dneClass.substring(0, 3)}`}>
+                    {homework.map((hw) => (
+                      <Homework {...hw} />
+                    ))}
+                    <Link to="/">
+                      <Tooltip
+                        title="Anasayfa"
+                        aria-label="anasayfa"
+                        className={classes.absolute}
+                      >
+                        <Fab color="secondary">
+                          <ArrowBackIcon />
+                        </Fab>
+                      </Tooltip>
+                    </Link>
+                  </Route>
+                );
+              })}
+            </Switch>
+          </Grid>
+          <Route exact path="/create">
+            {/* AAAAAA */}
+            <Grid container spacing={2}>
+              <Grid item style={{ margin: "1em" }} xs={12} sm={12} md={12}>
+                <Lottie
+                  width={"100%"}
+                  height={"70%"}
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animations.chill,
+                    rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                    },
+                  }}
+                />
               </Grid>
-            </Route>
-            {data.map(({ dneClass, homework }) => {
-              return (
-                <Route exact path={`/odevler/${dneClass.substring(0, 3)}`}>
-                  <Link to="/">
-                    <Tooltip
-                      // title={`Boşuna tıklama ${String.fromCodePoint(
-                      //   parseInt("1F981", 16)
-                      // )}`}
-                      title="Anasayfa"
-                      aria-label="anasayfa"
-                      className={classes.absolute}
-                    >
-                      <Fab style={{ position: "fixed" }} color="secondary">
-                        <ArrowBackIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Link>
-                  {homework.map((hw) => (
-                    <Homework {...hw} />
-                  ))}
-                </Route>
-              );
-            })}
-          </Switch>
-        </Grid>
-        <Route exact path="/create">
-          <Tooltip
-            title={`Boşuna tıklama ${String.fromCodePoint(
-              parseInt("1F981", 16)
-            )}`}
-            aria-label="add"
-            className={classes.absolute}
-          >
-            <Fab color="secondary">
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-        </Route>
-      </div>
-    </Router>
-  );
+              <CreateHomework
+                homeworkState={this.state.data}
+                closeIt={this.handleClose}
+                openIt={this.state.open}
+              />
+              <Tooltip
+                title={`Yeni Ödev Oluştur ${String.fromCodePoint(
+                  parseInt("1F4DD", 16)
+                )}`}
+                aria-label="add"
+                className={classes.absolute}
+                onClick={this.handleClickOpen}
+              >
+                <Fab color="secondary">
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
+              <Link to="/">
+                <Tooltip
+                  title="Anasayfa"
+                  aria-label="anasayfa"
+                  className={classes.absoluteBack}
+                >
+                  <Fab color="secondary">
+                    <ArrowBackIcon />
+                  </Fab>
+                </Tooltip>
+              </Link>
+            </Grid>
+            {/* ZZZZ */}
+          </Route>
+        </div>
+      </Router>
+    );
+  }
 }
+
+export default withStyles(styles)(App);

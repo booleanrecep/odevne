@@ -4,6 +4,7 @@ import App from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
+import { data, atasozleri } from "./data";
 
 const theme = createMuiTheme({
   palette: {
@@ -13,14 +14,15 @@ const theme = createMuiTheme({
     secondary: {
       main: red[500],
     },
-    recent: {
-      main: green[500],
-    },
+
     textPrimary: {
       main: "red",
     },
-    textSecondary: {
-      main: "red",
+    default: {
+      main: green[500],
+    },
+    textSub: {
+      main: green[500],
     },
   },
   typography: {
@@ -42,7 +44,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <App data={data} />
   </ThemeProvider>,
   document.getElementById("root")
 );

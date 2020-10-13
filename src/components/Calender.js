@@ -32,8 +32,8 @@ export default class Example extends React.Component {
     // this.handleDayClick = this.handleDayClick.bind(this);
     // this.handleResetClick = this.handleResetClick.bind(this);
     this.state = {
-      from: new Date(2020, 9, 10),
-      to: new Date(2020, 9, 13),
+      from: new Date(props.baslama), // new Date(2020, 9, 10),
+      to: new Date(props.bitis), //new Date(2020, 9, 13),
     };
   }
 
