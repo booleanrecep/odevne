@@ -37,23 +37,18 @@ export default function DneClass({ img, dneClass }) {
             </Typography>
           </CardContent>
           <Link to={`/odevler/${dneClass.substring(0, 3)}`}>
-            <>
-              {/* <Typography variant="body2" color="textSecondary" component="p">
-              {`Günün Atasözü: ${atasozu}`}
-            </Typography> */}
-              <Lottie
-                width={"100%"}
-                height={"27em"}
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: img,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice",
-                  },
-                }}
-              />
-            </>
+            <Lottie
+              width={"100%"}
+              height={"27em"}
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: img,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice",
+                },
+              }}
+            />
           </Link>
         </CardActionArea>
       </Card>

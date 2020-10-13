@@ -1,56 +1,25 @@
 import React from "react";
-import { fade } from "@material-ui/core/styles";
-import Lottie from "react-lottie";
-import AddIcon from "@material-ui/icons/Add";
-import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  Tooltip,
+  Grid,
+  Fab,
+  Typography,
+  withStyles,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Avatar,
+} from "@material-ui/core";
+import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Appbar from "./components/Appbar";
 import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
-import { animations } from "./images/animations/lottie/index";
+import recep from "./images/recep.png";
 
 const styles = (theme) => ({
-  search: {
-    position: "absolute",
-    display: "flex",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginTop: "8em",
-    width: "100%",
-    justifyContent: "center",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    fontSize: "1.3em",
-    width: "18em",
-    [theme.breakpoints.down("md")]: {
-      width: "18em",
-    },
-  },
   absolute: {
     position: "fixed",
     bottom: theme.spacing(3),
@@ -58,17 +27,20 @@ const styles = (theme) => ({
   },
   absoluteBack: {
     position: "fixed",
-    top: theme.spacing(1.5),
+    top: theme.spacing(3),
     right: theme.spacing(4),
-    // [theme.breakpoints.down("sm")]: {
-    //   top: theme.spacing(3),
-    //   right: theme.spacing(3),
-    // },
   },
-  lottie: {
-    [theme.breakpoints.down("sm")]: {
-      marginBottom: "-10em",
-    },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: "block",
+  },
+
+  absoluteTop: {
+    position: "fixed",
+    top: theme.spacing(0.5),
+    right: theme.spacing(3),
   },
 });
 
@@ -98,7 +70,57 @@ class App extends React.Component {
             <meta charSet="utf-8" />
             <title>ÖDEV NE</title>
           </Helmet>
-          <Appbar />
+          <div style={{ marginBottom: "5em" }}>
+            <AppBar position="fixed">
+              <Toolbar>
+                <Link to="/">
+                  <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="open drawer"
+                  >
+                    <Avatar src={recep} />
+                  </IconButton>
+                </Link>
+                {window.innerWidth <= 364 ? (
+                  <Typography className={classes.title} variant="h6" noWrap>
+                    DNE ORTAOKULU
+                    <br />
+                    RECEP HOCA
+                    <Tooltip
+                      title="Yeni Ödev Oluştur"
+                      aria-label="yeni-odev"
+                      className={classes.absoluteTop}
+                      onClick={this.handleClickOpen}
+                    >
+                      <Fab color="secondary">
+                        <span>{`${String.fromCodePoint(
+                          parseInt("1F4DD", 16)
+                        )}`}</span>
+                      </Fab>
+                    </Tooltip>
+                  </Typography>
+                ) : (
+                  <Typography className={classes.title} variant="h6" noWrap>
+                    DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA
+                    <Tooltip
+                      title="Yeni Ödev Oluştur"
+                      aria-label="yeni-odev"
+                      className={classes.absoluteTop}
+                      onClick={this.handleClickOpen}
+                    >
+                      <Fab color="secondary">
+                        <span>{`${String.fromCodePoint(
+                          parseInt("1F4DD", 16)
+                        )}`}</span>
+                      </Fab>
+                    </Tooltip>
+                  </Typography>
+                )}
+              </Toolbar>
+            </AppBar>
+          </div>
           <Grid container spacing={2}>
             <Switch>
               <Route exact path="/">
@@ -156,55 +178,12 @@ class App extends React.Component {
                 );
               })}
             </Switch>
+            <CreateHomework
+              homeworkState={this.state.data}
+              closeIt={this.handleClose}
+              openIt={this.state.open}
+            />
           </Grid>
-          <Route exact path="/create">
-            {/* AAAAAA */}
-            <Grid container spacing={2}>
-              <Grid item style={{ margin: "1em" }} xs={12} sm={12} md={12}>
-                <Lottie
-                  width={"100%"}
-                  height={"70%"}
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: animations.chill,
-                    rendererSettings: {
-                      preserveAspectRatio: "xMidYMid slice",
-                    },
-                  }}
-                />
-              </Grid>
-              <CreateHomework
-                homeworkState={this.state.data}
-                closeIt={this.handleClose}
-                openIt={this.state.open}
-              />
-              <Tooltip
-                title={`Yeni Ödev Oluştur ${String.fromCodePoint(
-                  parseInt("1F4DD", 16)
-                )}`}
-                aria-label="add"
-                className={classes.absolute}
-                onClick={this.handleClickOpen}
-              >
-                <Fab color="secondary">
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-              <Link to="/">
-                <Tooltip
-                  title="Anasayfa"
-                  aria-label="anasayfa"
-                  className={classes.absoluteBack}
-                >
-                  <Fab color="secondary">
-                    <ArrowBackIcon />
-                  </Fab>
-                </Tooltip>
-              </Link>
-            </Grid>
-            {/* ZZZZ */}
-          </Route>
         </div>
       </Router>
     );

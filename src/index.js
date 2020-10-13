@@ -4,7 +4,7 @@ import App from "./App";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
-import { data, atasozleri } from "./data";
+import { data } from "./data";
 
 const theme = createMuiTheme({
   palette: {

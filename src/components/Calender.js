@@ -29,44 +29,17 @@ const FIRST_DAY_OF_WEEK = {
 export default class Example extends React.Component {
   constructor(props) {
     super(props);
-    // this.handleDayClick = this.handleDayClick.bind(this);
-    // this.handleResetClick = this.handleResetClick.bind(this);
     this.state = {
       from: new Date(props.baslama), // new Date(2020, 9, 10),
       to: new Date(props.bitis), //new Date(2020, 9, 13),
     };
   }
 
-  //   handleDayClick() {
-  //     const range = DateUtils.addDayToRange(1, this.state);
-  //     this.setState(range);
-  //   }
-
-  //   handleResetClick() {
-  //     this.setState(this.getInitialState());
-  //   }
-
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
-    // const defaultProps = {
-    //     numberOfMonths: 1,
-    //   };
     return (
       <div className="RangeExample">
-        {/* <p>
-          {!from && !to && 'Please select the first day.'}
-          {from && !to && 'Please select the last day.'}
-          {from &&
-            to &&
-            `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
-          {from && to && (
-            <button className="link" onClick={this.handleResetClick}>
-              Reset
-            </button>
-          )}
-        </p> */}
         <DayPicker
           months={MONTHS["tr"]}
           weekdaysShort={WEEKDAYS_SHORT["tr"]}
@@ -75,7 +48,6 @@ export default class Example extends React.Component {
           numberOfMonths={this.props.numberOfMonths}
           selectedDays={[from, { from, to }]}
           modifiers={modifiers}
-          //   onDayClick={this.handleDayClick}
         />
         <Helmet>
           <style>{`

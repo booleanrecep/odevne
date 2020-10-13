@@ -55,28 +55,24 @@ export default function Homework({ sinif, baslama, bitis, konu, odev }) {
             </Avatar>
           }
           title={
-            <>
+            <div style={{ height: "2em" }}>
+              <TimelapseRoundedIcon
+                style={{
+                  marginLeft: "9em",
+                  color:
+                    bitis.substring(8, 10) > today.getDate() ? "green" : "grey",
+                }}
+              />
               <Typography
                 style={{
-                  marginTop: "-0.5em",
+                  marginTop: "-1.8em",
                 }}
                 variant="body1"
                 color="textPrimary"
               >
                 {konu}
-                <TimelapseRoundedIcon
-                  style={{
-                    position: "relative",
-                    color:
-                      bitis.substring(8, 10) > today.getDate()
-                        ? "green"
-                        : "grey",
-                    left: "4.5em",
-                    top: "0.3em",
-                  }}
-                />
               </Typography>
-            </>
+            </div>
           }
         />
 
