@@ -29,7 +29,14 @@ const styles = (theme) => ({
 class CreateHomework extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { sinif: "", baslama: "", bitis: "", konu: "", odev: "" };
+    this.state = {
+      id: "",
+      sinif: "",
+      baslama: "",
+      bitis: "",
+      konu: "",
+      odev: "",
+    };
     this.newState = props.homeworkState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,16 +46,24 @@ class CreateHomework extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.newState.map((cls) => {
-      cls.dneClass.substring(0, 3) === this.state.sinif
-        ? cls.homework.push(this.state)
-        : null;
+      cls.classroom === this.state.sinif ? cls.homework.push(this.state) : null;
+    });
+    this.setState({
+      id: "",
+      sinif: "",
+      baslama: "",
+      bitis: "",
+      konu: "",
+      odev: "",
     });
     this.close();
   };
   handleChange = (event) => {
     event.preventDefault();
     event.persist();
+    const newId = Math.floor(Math.random() * 10 ** 5);
     return this.setState({
+      id: newId,
       [event.target.name]: event.target.value,
     });
   };

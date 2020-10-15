@@ -10,7 +10,7 @@ import {
   IconButton,
   Avatar,
 } from "@material-ui/core";
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -18,7 +18,7 @@ import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import recep from "./images/recep.png";
-
+import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
@@ -50,6 +50,7 @@ class App extends React.Component {
     this.state = { data: props.data, open: false };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   handleClickOpen = () => {
@@ -58,6 +59,16 @@ class App extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  onDelete = (e) => {
+    e.preventDefault();
+    const targetId = e.target.id;
+    this.setState({
+      data: this.state.data.filter((cls, indx) => {
+        return (cls.homework = cls.homework.filter(({ id }) => id != targetId));
+      }),
+    });
   };
 
   render() {
@@ -95,9 +106,7 @@ class App extends React.Component {
                       onClick={this.handleClickOpen}
                     >
                       <Fab color="secondary">
-                        <span>{`${String.fromCodePoint(
-                          parseInt("1F4DD", 16)
-                        )}`}</span>
+                        <NoteAddOutlinedIcon />
                       </Fab>
                     </Tooltip>
                   </Typography>
@@ -111,9 +120,7 @@ class App extends React.Component {
                       onClick={this.handleClickOpen}
                     >
                       <Fab color="secondary">
-                        <span>{`${String.fromCodePoint(
-                          parseInt("1F4DD", 16)
-                        )}`}</span>
+                        <NoteAddOutlinedIcon />
                       </Fab>
                     </Tooltip>
                   </Typography>
@@ -127,57 +134,58 @@ class App extends React.Component {
                 {this.state.data.map((dt) => {
                   return <DneClass {...dt} />;
                 })}
-                <Grid
-                  item
-                  xs={12}
-                  style={{
-                    position: "relative",
-                    padding: "0.5em",
-                    height: "4.7em",
-                    width: "100%",
-                    backgroundColor: "#BEE6E2",
-                  }}
-                >
-                  <Typography
-                    color="textSecondary"
-                    style={{ position: "absolute", left: "2%" }}
-                  >
-                    {`Hayatta en doğru yol gösterici bilimdir`}
-                  </Typography>
-                  <br />
-                  <Typography
-                    style={{
-                      position: "absolute",
-                      left: "30%",
-                      marginTop: "0.5em",
-                    }}
-                    color="textSecondary"
-                  >
-                    {` Mustafa Kemal Atatürk`}
-                  </Typography>
-                </Grid>
               </Route>
-              {this.state.data.map(({ dneClass, homework }) => {
-                return (
-                  <Route exact path={`/odevler/${dneClass.substring(0, 3)}`}>
-                    {homework.map((hw) => (
-                      <Homework {...hw} />
-                    ))}
-                    <Link to="/">
-                      <Tooltip
-                        title="Anasayfa"
-                        aria-label="anasayfa"
-                        className={classes.absolute}
-                      >
-                        <Fab color="secondary">
-                          <ArrowBackIcon />
-                        </Fab>
-                      </Tooltip>
-                    </Link>
-                  </Route>
-                );
-              })}
+              {this.state.data &&
+                this.state.data.map(({ classroom, homework }) => {
+                  return (
+                    <Route exact path={`/odevler/${classroom}`}>
+                      {homework.map((hw) => (
+                        <Homework onDeleteState={this.onDelete} {...hw} />
+                      ))}
+                      <Link to="/">
+                        <Tooltip
+                          title="Anasayfa"
+                          aria-label="anasayfa"
+                          className={classes.absolute}
+                        >
+                          <Fab color="secondary">
+                            <ArrowBackIcon />
+                          </Fab>
+                        </Tooltip>
+                      </Link>
+                    </Route>
+                  );
+                })}
             </Switch>
+            <Grid
+              item
+              xs={12}
+              style={{
+                // position: "relative",
+                padding: "0.5em",
+                height: "4.7em",
+                width: "100%",
+                backgroundColor: "#BEE6E2",
+              }}
+            >
+              <Typography
+                color="textSecondary"
+                style={{ position: "absolute", left: "2%" }}
+              >
+                {`Hayatta en doğru yol gösterici bilimdir`}
+              </Typography>
+              <br />
+              <Typography
+                style={{
+                  position: "absolute",
+                  left: "30%",
+                  marginTop: "0.5em",
+                }}
+                color="textSecondary"
+              >
+                {` Mustafa Kemal Atatürk`}
+              </Typography>
+            </Grid>
             <CreateHomework
               homeworkState={this.state.data}
               closeIt={this.handleClose}

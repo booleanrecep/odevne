@@ -31,7 +31,7 @@ const data = [
   //ÖRNEK DATA////
   // {
   //   img: animations.wash_hand,
-  //   dneClass: "5-A SINIFI ÖDEVLERİ",
+  //   classroom: "5-A SINIFI ÖDEVLERİ",
   //   atasozu: "Seher vakti bir güzele tutuldum!",
   //   homework: [
   //     {
@@ -49,66 +49,58 @@ const data = [
   ////////////////
 
   {
-    img: animations.wash_hand,
-    dneClass: "5-A SINIFI ÖDEVLERİ",
-    atasozu: "Seher vakti bir güzele tutuldum!",
+    img: animations.girl_bike,
+    classroom: "5-A",
     homework: [
       {
+        id: Math.floor(Math.random() * 10 ** 5),
         sinif: "5-A",
         baslama: `${tr.getFullDate(".")}`,
         bitis: `${tr.getFullDate(".")}`,
         konu: "ÖRNEK KONU",
         odev: `ÖRNEK ÖDEV: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor tortor, luctus et nulla ac, convallis bibendum urna. Donec purus nunc, luctus nec diam eu, sodales euismod sem. Nunc aliquam mauris eget tincidunt sollicitudin. Nullam id malesuada urna. Quisque aliquam urna vitae felis aliquam faucibus. `,
-        img: assets[`a${Math.floor((Math.random() + 0.1) * 10)}`],
-        imgTitle: "Image1",
       },
     ],
   },
   {
     img: animations.woman_with_flower,
-    dneClass: "5-B SINIFI ÖDEVLERİ",
-    atasozu: "Seher vakti bir güzele tutuldum!",
+    classroom: "5-B",
     homework: [
       {
+        id: Math.floor(Math.random() * 10 ** 5),
         sinif: "5-B",
         baslama: `${tr.getFullDate(".")}`,
         bitis: `${tr.getFullDate(".")}`,
         konu: "ÖRNEK KONU",
         odev: `ÖRNEK ÖDEV: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor tortor, luctus et nulla ac, convallis bibendum urna. Donec purus nunc, luctus nec diam eu, sodales euismod sem. Nunc aliquam mauris eget tincidunt sollicitudin. Nullam id malesuada urna. Quisque aliquam urna vitae felis aliquam faucibus. `,
-        img: assets[`a${Math.floor((Math.random() + 0.1) * 10)}`],
-        imgTitle: "Image1",
       },
     ],
   },
   {
     img: animations.cat_with_hat,
-    dneClass: "6-B SINIFI ÖDEVLERİ",
-    atasozu: "Seher vakti bir güzele tutuldum!",
+    classroom: "6-B",
     homework: [
       {
+        id: Math.floor(Math.random() * 10 ** 5),
         sinif: "6-B",
         baslama: `${tr.getFullDate(".")}`,
         bitis: `${tr.getFullDate(".")}`,
         konu: "ÖRNEK KONU",
         odev: `ÖRNEK ÖDEV: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor tortor, luctus et nulla ac, convallis bibendum urna. Donec purus nunc, luctus nec diam eu, sodales euismod sem. Nunc aliquam mauris eget tincidunt sollicitudin. Nullam id malesuada urna. Quisque aliquam urna vitae felis aliquam faucibus. `,
-        img: assets[`a${Math.floor((Math.random() + 0.1) * 10)}`],
-        imgTitle: "Image1",
       },
     ],
   },
   {
-    img: animations.girl_bike,
-    dneClass: "8-A SINIFI ÖDEVLERİ",
-    atasozu: "Seher vakti bir güzele tutuldum!",
+    img: animations.wash_hand,
+    classroom: "8-A",
     homework: [
       {
+        id: Math.floor(Math.random() * 10 ** 5),
         sinif: "8-A",
         baslama: `${tr.getFullDate(".")}`,
         bitis: `${tr.getFullDate(".")}`,
         konu: "ÖRNEK KONU",
         odev: `ÖRNEK ÖDEV: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor tortor, luctus et nulla ac, convallis bibendum urna. Donec purus nunc, luctus nec diam eu, sodales euismod sem. Nunc aliquam mauris eget tincidunt sollicitudin. Nullam id malesuada urna. Quisque aliquam urna vitae felis aliquam faucibus. `,
-        img: assets[`a${Math.floor((Math.random() + 0.1) * 10)}`],
-        imgTitle: "Image1",
       },
     ],
   },

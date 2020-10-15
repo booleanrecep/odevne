@@ -36,18 +36,25 @@ export default class Example extends React.Component {
   }
 
   render() {
+    const modifiersStyles = {
+      weekend: {
+        color: "#ffc107",
+        backgroundColor: "#fffdee",
+      },
+    };
     const { from, to } = this.state;
-    const modifiers = { start: from, end: to };
+    const modifiers = { start: from, end: to, weekend: { daysOfWeek: [0, 6] } };
     return (
       <div className="RangeExample">
         <DayPicker
+          modifiersStyles={modifiersStyles}
+          modifiers={modifiers}
           months={MONTHS["tr"]}
           weekdaysShort={WEEKDAYS_SHORT["tr"]}
           firstDayOfWeek={FIRST_DAY_OF_WEEK["tr"]}
           className="Selectable"
           numberOfMonths={this.props.numberOfMonths}
           selectedDays={[from, { from, to }]}
-          modifiers={modifiers}
         />
         <Helmet>
           <style>{`

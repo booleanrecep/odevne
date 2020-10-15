@@ -13,13 +13,7 @@ const useStyles = makeStyles({
     paddingTop: "56.25%", // 16:9
   },
 });
-
-DneClass.defaultProps = {
-  img: "",
-  dneClass: "5/A SINIFI ÖDEVLERİ",
-  atasozu: "O yana da bu yana da salla!",
-};
-export default function DneClass({ img, dneClass }) {
+export default function DneClass({ img, classroom }) {
   const classes = useStyles();
 
   return (
@@ -33,10 +27,10 @@ export default function DneClass({ img, dneClass }) {
               variant="h5"
               component="h2"
             >
-              {dneClass}
+              {`${classroom} SINIFI ÖDEVLERİ`}
             </Typography>
           </CardContent>
-          <Link to={`/odevler/${dneClass.substring(0, 3)}`}>
+          <Link to={`/odevler/${classroom}`}>
             <Lottie
               width={"100%"}
               height={"27em"}
