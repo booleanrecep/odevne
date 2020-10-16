@@ -10,7 +10,7 @@ import {
   IconButton,
   Avatar,
 } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -42,6 +42,22 @@ const styles = (theme) => ({
     top: theme.spacing(0.5),
     right: theme.spacing(3),
   },
+  footer: {
+    position: "relative",
+    bottom: "0",
+    // padding: "0.5em",
+    height: "6.7em",
+    width: "100%",
+    backgroundColor: "#BEE6E2",
+  },
+  copyright: {
+    position: "absolute",
+    left: "30%",
+    bottom: "0.5em",
+    [theme.breakpoints.down("sm")]: {
+      left: "18%",
+    },
+  },
 });
 
 class App extends React.Component {
@@ -51,6 +67,7 @@ class App extends React.Component {
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onEditState = this.onEditState.bind(this);
   }
 
   handleClickOpen = () => {
@@ -61,6 +78,9 @@ class App extends React.Component {
     this.setState({ open: false });
   };
 
+  onEditState = (e) => {
+    console.log("Editing");
+  };
   onDelete = (e) => {
     e.preventDefault();
     const targetId = e.target.id;
@@ -134,13 +154,42 @@ class App extends React.Component {
                 {this.state.data.map((dt) => {
                   return <DneClass {...dt} />;
                 })}
+                <Grid item xs={12} className={classes.footer}>
+                  <Typography
+                    color="textSecondary"
+                    style={{ position: "absolute", left: "2%" }}
+                  >
+                    {`Hayatta en doğru yol gösterici bilimdir`}
+                  </Typography>
+                  <br />
+                  <Typography
+                    style={{
+                      position: "absolute",
+                      left: "30%",
+                      marginTop: "0.5em",
+                    }}
+                    color="textSecondary"
+                  >
+                    {` Mustafa Kemal Atatürk`}
+                  </Typography>
+                  <Typography
+                    className={classes.copyright}
+                    color="textSecondary"
+                  >
+                    &#xA9; Copyright 2020 Recep ÖZTÜRK
+                  </Typography>
+                </Grid>
               </Route>
               {this.state.data &&
                 this.state.data.map(({ classroom, homework }) => {
                   return (
                     <Route exact path={`/odevler/${classroom}`}>
                       {homework.map((hw) => (
-                        <Homework onDeleteState={this.onDelete} {...hw} />
+                        <Homework
+                          onEditState={this.onEditState}
+                          onDeleteState={this.onDelete}
+                          {...hw}
+                        />
                       ))}
                       <Link to="/">
                         <Tooltip
@@ -157,35 +206,7 @@ class App extends React.Component {
                   );
                 })}
             </Switch>
-            <Grid
-              item
-              xs={12}
-              style={{
-                // position: "relative",
-                padding: "0.5em",
-                height: "4.7em",
-                width: "100%",
-                backgroundColor: "#BEE6E2",
-              }}
-            >
-              <Typography
-                color="textSecondary"
-                style={{ position: "absolute", left: "2%" }}
-              >
-                {`Hayatta en doğru yol gösterici bilimdir`}
-              </Typography>
-              <br />
-              <Typography
-                style={{
-                  position: "absolute",
-                  left: "30%",
-                  marginTop: "0.5em",
-                }}
-                color="textSecondary"
-              >
-                {` Mustafa Kemal Atatürk`}
-              </Typography>
-            </Grid>
+
             <CreateHomework
               homeworkState={this.state.data}
               closeIt={this.handleClose}

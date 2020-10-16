@@ -38,7 +38,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Homework(props) {
   const classes = useStyles();
-  const { onDeleteState, id, sinif, baslama, bitis, konu, odev } = props;
+  const {
+    onEditState,
+    onDeleteState,
+    id,
+    sinif,
+    baslama,
+    bitis,
+    konu,
+    odev,
+  } = props;
   const [fav, setFav] = React.useState({ favColor: "", favNum: "0" });
   const today = new TrDate();
 
@@ -84,8 +93,37 @@ export default function Homework(props) {
         </div>
 
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {odev}
+          <Typography
+            align="left"
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {odev.substring(0, 38)}
+          </Typography>
+          <Typography
+            align="left"
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {odev.substring(38, 76)}
+          </Typography>
+          <Typography
+            align="left"
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {odev.substring(76, 112)}
+          </Typography>
+          <Typography
+            align="left"
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {odev.substring(112, 150)}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -103,17 +141,15 @@ export default function Homework(props) {
               <FavoriteIcon style={{ color: fav.favColor }} />
             </Badge>
           </IconButton>
-          <IconButton aria-label="edit" style={{ marginLeft: "7em" }}>
+          <IconButton
+            aria-label="edit"
+            style={{ marginLeft: "7em" }}
+            id={id}
+            onClick={onEditState}
+          >
             <EditIcon />
           </IconButton>
-          <IconButton
-            aria-label="delete"
-            // style={{marginLeft:"1em"}}
-            id={id}
-            onClick={onDeleteState}
-            // deleteState={props.deleteState}
-          >
-            {/* Delete */}
+          <IconButton aria-label="delete" id={id} onClick={onDeleteState}>
             <DeleteIcon />
           </IconButton>
         </CardActions>

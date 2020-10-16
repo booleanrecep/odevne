@@ -21,9 +21,6 @@ const theme = createMuiTheme({
     default: {
       main: green[500],
     },
-    textSub: {
-      main: green[500],
-    },
   },
   typography: {
     fontFamily: [

@@ -146,7 +146,7 @@ class CreateHomework extends React.Component {
                 label="Konu"
                 type="text"
                 inputProps={{
-                  maxLength: "30",
+                  maxLength: "25",
                 }}
                 className={classes.konu}
               />
@@ -157,7 +157,6 @@ class CreateHomework extends React.Component {
                 name="odev"
                 label="Ödev Açıklaması"
                 type="text"
-                // fullWidth
                 multiline
                 inputProps={{
                   maxLength: "150",
