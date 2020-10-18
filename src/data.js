@@ -33,7 +33,7 @@ const data = [
   //   img: animations.wash_hand,
   //   classroom: "5-A SINIFI ÖDEVLERİ",
   //   atasozu: "Seher vakti bir güzele tutuldum!",
-  //   homework: [
+  //   homeworks: [
   //     {
   //       sinif: "5-A",
   //       baslama: `${tr.getFullDate(".")}`,
@@ -51,7 +51,7 @@ const data = [
   {
     img: animations.girl_bike,
     classroom: "5-A",
-    homework: [
+    homeworks: [
       {
         id: Math.floor(Math.random() * 10 ** 5),
         sinif: "5-A",
@@ -65,7 +65,7 @@ const data = [
   {
     img: animations.woman_with_flower,
     classroom: "5-B",
-    homework: [
+    homeworks: [
       {
         id: Math.floor(Math.random() * 10 ** 5),
         sinif: "5-B",
@@ -79,7 +79,7 @@ const data = [
   {
     img: animations.cat_with_hat,
     classroom: "6-B",
-    homework: [
+    homeworks: [
       {
         id: Math.floor(Math.random() * 10 ** 5),
         sinif: "6-B",
@@ -93,7 +93,7 @@ const data = [
   {
     img: animations.wash_hand,
     classroom: "8-A",
-    homework: [
+    homeworks: [
       {
         id: Math.floor(Math.random() * 10 ** 5),
         sinif: "8-A",

@@ -27,57 +27,53 @@ const styles = (theme) => ({
     },
   },
 });
-class CreateHomework extends React.Component {
+
+class EditHomework extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: "",
-      sinif: "",
-      baslama: "",
-      bitis: "",
-      konu: "",
-      odev: "",
-    };
-    this.editState=props.editState
+    this.state=""
     this.newState = props.homeworkState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getEditState=this.getEditState.bind(this)
     this.close = props.closeIt;
   }
-  
-
   handleSubmit = (e) => {
     e.preventDefault();
-    this.newState.map((cls) => {
-      cls.classroom === this.state.sinif ? cls.homeworks.push(this.state) : null;
-    });
-    this.setState({
-      id: "",
-      sinif: "",
-      baslama: "",
-      bitis: "",
-      konu: "",
-      odev: "",
-    });
+    console.log("Submittin")
     this.close();
   };
-  
-
+ 
+ 
   handleChange = (event) => {
     event.preventDefault();
     event.persist();
-    const newId = Math.floor(Math.random() * 10 ** 5);
+
     this.setState({
-      id: newId,
-      [event.target.name]: event.target.value,
+    [event.target.name]:event.target.value,
     })
     
   };
-
+  componentDidUpdate(){
+    this.state==""? this.getEditState():null  
+    console.log("didupdate") 
+    
+  }
+  // getSnapshotBeforeUpdate(){
+  //   console.log("snapshot")
+  //  return this.toggle===" "? this.getEditState():null
+  // }
+ 
+  getEditState= ()=>{
+    this.setState({
+      ...this.props.editState,
+    })
+  }
   render() {
-    const { openIt, closeIt} = this.props;
-    const { classes } = this.props;
-    const { sinif, baslama, bitis, konu, odev } =this.state;
+    const { openIt, closeIt,classes} = this.props;
+   
+    const { sinif, baslama, bitis, konu, odev } = this.state //this.props.editState
+    console.log(this.state)
     return (
       <div>
         <Dialog
@@ -106,10 +102,8 @@ class CreateHomework extends React.Component {
                   width: "5em",
                 }}
               >
-                <MenuItem value={"5-A"}>5/A</MenuItem>
-                <MenuItem value={"5-B"}>5/B</MenuItem>
-                <MenuItem value={"6-B"}>6/B</MenuItem>
-                <MenuItem value={"8-A"}>8/A</MenuItem>
+                <MenuItem value={sinif}>{sinif}</MenuItem>
+                
               </Select>
 
               <TextField
@@ -185,4 +179,4 @@ class CreateHomework extends React.Component {
   }
 }
 
-export default withStyles(styles)(CreateHomework);
+export default withStyles(styles)(EditHomework);
