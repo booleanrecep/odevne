@@ -69,14 +69,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: props.data,
+      editState: {},
       openEdit: false,
       openCreate: false,
-      editState: "",
     };
     this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onDelete = this.onDelete.bind(this);
-    this.onEditState = this.onEditState.bind(this);
+    // this.onEditState = this.onEditState.bind(this);
   }
 
   handleClickOpenCreate = () => {
@@ -93,18 +93,25 @@ class App extends React.Component {
 
   onEditState = (e) => {
     e.preventDefault();
-    let eState = "";
-    this.state.data
-      .find(({ homeworks }) =>
-        homeworks.find(({ id }) => id === parseInt(e.target.id))
-      )
-      .homeworks.map((homework) => {
-        homework.baslama = this.changeDateFormat(homework.baslama);
-        homework.bitis = this.changeDateFormat(homework.bitis);
-        eState = homework;
-      });
+    let findedClassroom = this.state.data.find(({ homeworks }) =>
+      homeworks.filter(({ id }) => id === parseInt(e.target.id))
+    );
+    let findHomework = findedClassroom.homeworks.find(
+      (hw) => parseInt(hw.id) === parseInt(e.target.id)
+    );
+    //  .homeworks.find((homework) => {
+
+    //    homework.baslama = this.changeDateFormat(homework.baslama);
+    //    homework.bitis = this.changeDateFormat(homework.bitis);
+    //    return homework
+    //  })
+
     this.setState({
-      editState: eState,
+      editState: {
+        ...findHomework,
+        baslama: this.changeDateFormat(findHomework.baslama),
+        bitis: this.changeDateFormat(findHomework.bitis),
+      },
       openEdit: true,
     });
   };
@@ -124,8 +131,6 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { editState } = this.state;
-    // console.log(this.state.editState)
     return (
       <Router>
         <div>
@@ -247,7 +252,7 @@ class App extends React.Component {
             />
             <EditHomework
               homeworkState={this.state.data}
-              editState={editState}
+              editState={this.state.editState}
               closeIt={this.handleClose}
               openIt={this.state.openEdit}
             />

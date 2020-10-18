@@ -1,16 +1,16 @@
 import React from "react";
 import {
-    Tooltip,
-    Fab,
-    Typography,
-    AppBar,
-    Toolbar,
-    IconButton,
-    Avatar,
-  } from "@material-ui/core";
-import {  makeStyles } from "@material-ui/core/styles";
+  Tooltip,
+  Fab,
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Avatar,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import recep from "../images/recep.png";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Appbar = ({handleClickOpen}) => {
+const Appbar = ({ handleClickOpen }) => {
   const classes = useStyles();
   return (
     <div style={{ marginBottom: "5em" }}>
@@ -82,4 +82,4 @@ const Appbar = ({handleClickOpen}) => {
   );
 };
 
-export default Appbar
+export default Appbar;

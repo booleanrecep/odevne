@@ -10,10 +10,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import TrDate from "tr-date";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   konu: {
     width: "14em",
     [theme.breakpoints.up("sm")]: {
@@ -26,157 +26,126 @@ const styles = (theme) => ({
       width: "25em",
     },
   },
-});
+}));
 
-class EditHomework extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state=""
-    this.newState = props.homeworkState;
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.getEditState=this.getEditState.bind(this)
-    this.close = props.closeIt;
-  }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submittin")
-    this.close();
-  };
- 
- 
-  handleChange = (event) => {
+const EditHomework = (props) => {
+  const classes = useStyles();
+  const { openIt, closeIt } = props;
+  let [state, setState] = React.useState(props.editState);
+  const { sinif, baslama, bitis, konu, odev } = props.editState;
+  console.log(state);
+  const handleChange = (event) => {
     event.preventDefault();
     event.persist();
 
-    this.setState({
-    [event.target.name]:event.target.value,
-    })
-    
+    setState({
+      [event.target.name]: event.target.value,
+    });
   };
-  componentDidUpdate(){
-    this.state==""? this.getEditState():null  
-    console.log("didupdate") 
-    
-  }
-  // getSnapshotBeforeUpdate(){
-  //   console.log("snapshot")
-  //  return this.toggle===" "? this.getEditState():null
-  // }
- 
-  getEditState= ()=>{
-    this.setState({
-      ...this.props.editState,
-    })
-  }
-  render() {
-    const { openIt, closeIt,classes} = this.props;
-   
-    const { sinif, baslama, bitis, konu, odev } = this.state //this.props.editState
-    console.log(this.state)
-    return (
-      <div>
-        <Dialog
-          open={openIt}
-          onClose={closeIt}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Yeni Ödev</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Yeni bir ödev oluşturmak için lütfen aşağıdaki alanları
-              doldurunuz.
-            </DialogContentText>
-            <FormControl>
-              <InputLabel>Sınıf</InputLabel>
+  const handleSubmit = () => {
+    console.log("submitting");
+  };
 
-              <Select
-                labelId="demo-simple-select-label"
-                value={sinif}
-                onChange={this.handleChange}
-                autoWidth
-                inputProps={{
-                  name: "sinif",
-                }}
-                style={{
-                  width: "5em",
-                }}
-              >
-                <MenuItem value={sinif}>{sinif}</MenuItem>
-                
-              </Select>
+  return (
+    <div>
+      <Dialog
+        open={openIt}
+        onClose={closeIt}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Yeni Ödev</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Yeni bir ödev oluşturmak için lütfen aşağıdaki alanları doldurunuz.
+          </DialogContentText>
+          <FormControl>
+            <InputLabel>Sınıf</InputLabel>
 
-              <TextField
-                onChange={this.handleChange}
-                margin="dense"
-                value={baslama}
-                name="baslama"
-                label="Başlama Tarihi"
-                type="date"
-                inputProps={{
-                  min: "0000-10-13",
-                  max: "0000-12-31",
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                style={{ width: "10em" }}
-              />
-              <TextField
-                onChange={this.handleChange}
-                margin="dense"
-                name="bitis"
-                value={bitis}
-                label="Bitiş Tarihi"
-                type="date"
-                inputProps={{
-                  min: "0000-10-13",
-                  max: "0000-12-31",
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                style={{ width: "10em" }}
-              />
-              <TextField
-                onChange={this.handleChange}
-                value={konu}
-                margin="dense"
-                name="konu"
-                label="Konu"
-                type="text"
-                inputProps={{
-                  maxLength: "25",
-                }}
-                className={classes.konu}
-              />
-              <TextField
-                onChange={this.handleChange}
-                value={odev}
-                margin="dense"
-                name="odev"
-                label="Ödev Açıklaması"
-                type="text"
-                multiline
-                inputProps={{
-                  maxLength: "150",
-                }}
-                className={classes.odev}
-              />
-            </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={closeIt} color="secondary">
-              İPTAL
-            </Button>
-            <Button onClick={this.handleSubmit} color="default">
-              EKLE
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
-}
+            <Select
+              labelId="demo-simple-select-label"
+              value={sinif}
+              onChange={(e) => handleChange(e)}
+              autoWidth
+              inputProps={{
+                name: "sinif",
+              }}
+              style={{
+                width: "5em",
+              }}
+            >
+              <MenuItem value={sinif}>{sinif}</MenuItem>
+            </Select>
 
-export default withStyles(styles)(EditHomework);
+            <TextField
+              onChange={(e) => handleChange(e)}
+              margin="dense"
+              value={baslama}
+              name="baslama"
+              label="Başlama Tarihi"
+              type="date"
+              inputProps={{
+                min: "0000-10-13",
+                max: "0000-12-31",
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              style={{ width: "10em" }}
+            />
+            <TextField
+              onChange={(e) => handleChange(e)}
+              margin="dense"
+              name="bitis"
+              value={bitis}
+              label="Bitiş Tarihi"
+              type="date"
+              inputProps={{
+                min: "0000-10-13",
+                max: "0000-12-31",
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              style={{ width: "10em" }}
+            />
+            <TextField
+              onChange={(e) => handleChange(e)}
+              value={konu}
+              margin="dense"
+              name="konu"
+              label="Konu"
+              type="text"
+              inputProps={{
+                maxLength: "25",
+              }}
+              className={classes.konu}
+            />
+            <TextField
+              onChange={(e) => handleChange(e)}
+              value={odev}
+              margin="dense"
+              name="odev"
+              label="Ödev Açıklaması"
+              type="text"
+              multiline
+              inputProps={{
+                maxLength: "150",
+              }}
+              className={classes.odev}
+            />
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeIt} color="secondary">
+            İPTAL
+          </Button>
+          <Button onClick={handleSubmit} color="default">
+            EKLE
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+export default EditHomework;

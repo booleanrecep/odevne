@@ -38,18 +38,19 @@ class CreateHomework extends React.Component {
       konu: "",
       odev: "",
     };
-    this.editState=props.editState
+    this.editState = props.editState;
     this.newState = props.homeworkState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.close = props.closeIt;
   }
-  
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.newState.map((cls) => {
-      cls.classroom === this.state.sinif ? cls.homeworks.push(this.state) : null;
+      cls.classroom === this.state.sinif
+        ? cls.homeworks.push(this.state)
+        : null;
     });
     this.setState({
       id: "",
@@ -61,7 +62,6 @@ class CreateHomework extends React.Component {
     });
     this.close();
   };
-  
 
   handleChange = (event) => {
     event.preventDefault();
@@ -70,14 +70,13 @@ class CreateHomework extends React.Component {
     this.setState({
       id: newId,
       [event.target.name]: event.target.value,
-    })
-    
+    });
   };
 
   render() {
-    const { openIt, closeIt} = this.props;
+    const { openIt, closeIt } = this.props;
     const { classes } = this.props;
-    const { sinif, baslama, bitis, konu, odev } =this.state;
+    const { sinif, baslama, bitis, konu, odev } = this.state;
     return (
       <div>
         <Dialog
