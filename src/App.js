@@ -17,8 +17,12 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
+import EditHomework from "./components/EditHomework";
+import TrDate from "tr-date";
+
 import recep from "./images/recep.png";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
+import { CollectionsOutlined } from "@material-ui/icons";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
@@ -63,31 +67,65 @@ const styles = (theme) => ({
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: props.data, open: false };
-    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.state = {
+      data: props.data,
+      editState: {},
+      openEdit: false,
+      openCreate: false,
+    };
+    this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onDelete = this.onDelete.bind(this);
-    this.onEditState = this.onEditState.bind(this);
+    // this.onEditState = this.onEditState.bind(this);
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
+  handleClickOpenCreate = () => {
+    this.setState({ openCreate: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ openCreate: false, openEdit: false });
+  };
+  changeDateFormat = (date) => {
+    const cd = new TrDate(date);
+    return `${cd.getFullYear()}-${cd.getMonthNum()}-${cd.getDate()}`;
   };
 
   onEditState = (e) => {
-    console.log("Editing");
+    e.preventDefault();
+    let findedClassroom = this.state.data.find(({ homeworks }) =>
+      homeworks.filter(({ id }) => id === parseInt(e.target.id))
+    );
+    let findHomework = findedClassroom.homeworks.find(
+      (hw) => parseInt(hw.id) === parseInt(e.target.id)
+    );
+    //  .homeworks.find((homework) => {
+
+    //    homework.baslama = this.changeDateFormat(homework.baslama);
+    //    homework.bitis = this.changeDateFormat(homework.bitis);
+    //    return homework
+    //  })
+
+    this.setState({
+      editState: {
+        ...findHomework,
+        baslama: this.changeDateFormat(findHomework.baslama),
+        bitis: this.changeDateFormat(findHomework.bitis),
+      },
+      openEdit: true,
+    });
   };
+
   onDelete = (e) => {
     e.preventDefault();
     const targetId = e.target.id;
     this.setState({
       data: this.state.data.filter((cls, indx) => {
-        return (cls.homework = cls.homework.filter(({ id }) => id != targetId));
+        return (cls.homeworks = cls.homeworks.filter(
+          ({ id }) => id != targetId
+        ));
       }),
+      editState: "",
     });
   };
 
@@ -123,7 +161,7 @@ class App extends React.Component {
                       title="Yeni Ödev Oluştur"
                       aria-label="yeni-odev"
                       className={classes.absoluteTop}
-                      onClick={this.handleClickOpen}
+                      onClick={this.handleClickOpenCreate}
                     >
                       <Fab color="secondary">
                         <NoteAddOutlinedIcon />
@@ -137,7 +175,7 @@ class App extends React.Component {
                       title="Yeni Ödev Oluştur"
                       aria-label="yeni-odev"
                       className={classes.absoluteTop}
-                      onClick={this.handleClickOpen}
+                      onClick={this.handleClickOpenCreate}
                     >
                       <Fab color="secondary">
                         <NoteAddOutlinedIcon />
@@ -181,10 +219,10 @@ class App extends React.Component {
                 </Grid>
               </Route>
               {this.state.data &&
-                this.state.data.map(({ classroom, homework }) => {
+                this.state.data.map(({ classroom, homeworks }) => {
                   return (
                     <Route exact path={`/odevler/${classroom}`}>
-                      {homework.map((hw) => (
+                      {homeworks.map((hw) => (
                         <Homework
                           onEditState={this.onEditState}
                           onDeleteState={this.onDelete}
@@ -210,7 +248,13 @@ class App extends React.Component {
             <CreateHomework
               homeworkState={this.state.data}
               closeIt={this.handleClose}
-              openIt={this.state.open}
+              openIt={this.state.openCreate}
+            />
+            <EditHomework
+              homeworkState={this.state.data}
+              editState={this.state.editState}
+              closeIt={this.handleClose}
+              openIt={this.state.openEdit}
             />
           </Grid>
         </div>

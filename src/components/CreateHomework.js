@@ -11,6 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
+import TrDate from "tr-date";
 
 const styles = (theme) => ({
   konu: {
@@ -37,6 +38,7 @@ class CreateHomework extends React.Component {
       konu: "",
       odev: "",
     };
+    this.editState = props.editState;
     this.newState = props.homeworkState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -46,7 +48,9 @@ class CreateHomework extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.newState.map((cls) => {
-      cls.classroom === this.state.sinif ? cls.homework.push(this.state) : null;
+      cls.classroom === this.state.sinif
+        ? cls.homeworks.push(this.state)
+        : null;
     });
     this.setState({
       id: "",
@@ -58,11 +62,12 @@ class CreateHomework extends React.Component {
     });
     this.close();
   };
+
   handleChange = (event) => {
     event.preventDefault();
     event.persist();
     const newId = Math.floor(Math.random() * 10 ** 5);
-    return this.setState({
+    this.setState({
       id: newId,
       [event.target.name]: event.target.value,
     });
