@@ -1,21 +1,15 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
 
-const useStyles = makeStyles({
-  media: {
-    paddingTop: "56.25%", // 16:9
-  },
-});
 export default function DneClass({ img, classroom }) {
-  const classes = useStyles();
-
   return (
     <Grid item xs={12} sm={6} lg={3}>
       <Card>
