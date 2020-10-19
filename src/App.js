@@ -21,7 +21,7 @@ import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
 import TrDate from "tr-date";
-
+import Draggable from "react-draggable";
 import recep from "./images/recep.png";
 const styles = (theme) => ({
   absolute: {
@@ -68,6 +68,11 @@ class App extends React.Component {
       editState: "",
       openEdit: false,
       openCreate: false,
+      activeDrags: 0,
+      deltaPosition: {
+        x: 0,
+        y: 0,
+      },
     };
     this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -147,8 +152,18 @@ class App extends React.Component {
     });
   };
 
+  onStart = () => {
+    this.setState({ activeDrags: ++this.state.activeDrags });
+  };
+
+  onStop = () => {
+    this.setState({ activeDrags: --this.state.activeDrags });
+    return false;
+  };
+
   render() {
     const { classes } = this.props;
+    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
     return (
       <Router>
         <div>
@@ -240,25 +255,25 @@ class App extends React.Component {
                 this.state.data.map(({ classroom, homeworks }) => {
                   return (
                     <Route exact path={`/odevler/${classroom}`}>
-                      {homeworks.map((hw) => (
+                      {homeworks.map((homework) => (
                         <Homework
                           onEditState={this.onEditState}
                           onDeleteState={this.onDelete}
-                          {...hw}
+                          {...homework}
                         />
                       ))}
                       <Link to="/">
-                        <Tooltip
-                          draggable="true"
-                          title="Anasayfa"
-                          aria-label="anasayfa"
-                          className={classes.absolute}
-                          // onDrag={(props)=>console.log(props)}
-                        >
-                          <Fab color="secondary">
-                            <ArrowBackIcon />
-                          </Fab>
-                        </Tooltip>
+                        <Draggable {...dragHandlers}>
+                          <Tooltip
+                            title="Anasayfa"
+                            aria-label="anasayfa"
+                            className={classes.absolute}
+                          >
+                            <Fab color="secondary">
+                              <ArrowBackIcon />
+                            </Fab>
+                          </Tooltip>
+                        </Draggable>
                       </Link>
                     </Route>
                   );
@@ -271,7 +286,6 @@ class App extends React.Component {
               openIt={this.state.openCreate}
             />
             <EditHomework
-              homeworkState={this.state.data}
               editState={this.state.editState}
               closeIt={this.handleClose}
               openIt={this.state.openEdit}
