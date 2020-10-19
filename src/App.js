@@ -14,6 +14,8 @@ import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
+
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
@@ -21,18 +23,11 @@ import EditHomework from "./components/EditHomework";
 import TrDate from "tr-date";
 
 import recep from "./images/recep.png";
-import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
-import { CollectionsOutlined } from "@material-ui/icons";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
     bottom: theme.spacing(3),
     right: theme.spacing(3),
-  },
-  absoluteBack: {
-    position: "fixed",
-    top: theme.spacing(3),
-    right: theme.spacing(4),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -67,16 +62,19 @@ const styles = (theme) => ({
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       data: props.data,
-      editState: {},
+      editState: "",
       openEdit: false,
       openCreate: false,
     };
     this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onDelete = this.onDelete.bind(this);
-    // this.onEditState = this.onEditState.bind(this);
+    this.onEditState = this.onEditState.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeDateFormat = this.changeDateFormat.bind(this);
   }
 
   handleClickOpenCreate = () => {
@@ -94,28 +92,48 @@ class App extends React.Component {
   onEditState = (e) => {
     e.preventDefault();
     let findedClassroom = this.state.data.find(({ homeworks }) =>
-      homeworks.filter(({ id }) => id === parseInt(e.target.id))
+      homeworks.find(({ id }) => id === parseInt(e.target.id))
     );
     let findHomework = findedClassroom.homeworks.find(
       (hw) => parseInt(hw.id) === parseInt(e.target.id)
     );
-    //  .homeworks.find((homework) => {
-
-    //    homework.baslama = this.changeDateFormat(homework.baslama);
-    //    homework.bitis = this.changeDateFormat(homework.bitis);
-    //    return homework
-    //  })
+    let baslama = this.changeDateFormat(findHomework.baslama);
+    let bitis = this.changeDateFormat(findHomework.bitis);
 
     this.setState({
-      editState: {
-        ...findHomework,
-        baslama: this.changeDateFormat(findHomework.baslama),
-        bitis: this.changeDateFormat(findHomework.bitis),
-      },
+      editState: Object.assign({ ...findHomework }, { baslama, bitis }),
       openEdit: true,
     });
   };
+  handleChange = (e) => {
+    e.preventDefault();
+    e.persist();
 
+    this.setState({
+      editState: {
+        ...this.state.editState,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  handleSubmit = () => {
+    const newData = this.state.data.map((cls) => {
+      const editedClassroom = cls.homeworks.map((homework) => {
+        const editedHomework =
+          parseInt(homework.id) === parseInt(this.state.editState.id)
+            ? this.state.editState
+            : homework;
+        return editedHomework;
+      });
+      cls.homeworks = editedClassroom;
+      return cls;
+    });
+    this.setState({
+      data: newData,
+      openEdit: false,
+    });
+  };
   onDelete = (e) => {
     e.preventDefault();
     const targetId = e.target.id;
@@ -231,9 +249,11 @@ class App extends React.Component {
                       ))}
                       <Link to="/">
                         <Tooltip
+                          draggable="true"
                           title="Anasayfa"
                           aria-label="anasayfa"
                           className={classes.absolute}
+                          // onDrag={(props)=>console.log(props)}
                         >
                           <Fab color="secondary">
                             <ArrowBackIcon />
@@ -255,6 +275,8 @@ class App extends React.Component {
               editState={this.state.editState}
               closeIt={this.handleClose}
               openIt={this.state.openEdit}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
             />
           </Grid>
         </div>

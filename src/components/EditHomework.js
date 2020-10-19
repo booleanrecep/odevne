@@ -1,17 +1,18 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TrDate from "tr-date";
 
 const useStyles = makeStyles((theme) => ({
   konu: {
@@ -30,21 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 const EditHomework = (props) => {
   const classes = useStyles();
-  const { openIt, closeIt } = props;
-  let [state, setState] = React.useState(props.editState);
-  const { sinif, baslama, bitis, konu, odev } = props.editState;
-  console.log(state);
-  const handleChange = (event) => {
-    event.preventDefault();
-    event.persist();
-
-    setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-  const handleSubmit = () => {
-    console.log("submitting");
-  };
+  const { openIt, closeIt, editState, handleChange, handleSubmit } = props;
+  const { sinif, baslama, bitis, konu, odev } = editState;
 
   return (
     <div>
@@ -64,7 +52,7 @@ const EditHomework = (props) => {
             <Select
               labelId="demo-simple-select-label"
               value={sinif}
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               autoWidth
               inputProps={{
                 name: "sinif",
@@ -77,7 +65,7 @@ const EditHomework = (props) => {
             </Select>
 
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               margin="dense"
               value={baslama}
               name="baslama"
@@ -93,7 +81,7 @@ const EditHomework = (props) => {
               style={{ width: "10em" }}
             />
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               margin="dense"
               name="bitis"
               value={bitis}
@@ -109,7 +97,7 @@ const EditHomework = (props) => {
               style={{ width: "10em" }}
             />
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               value={konu}
               margin="dense"
               name="konu"
@@ -121,7 +109,7 @@ const EditHomework = (props) => {
               className={classes.konu}
             />
             <TextField
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               value={odev}
               margin="dense"
               name="odev"
