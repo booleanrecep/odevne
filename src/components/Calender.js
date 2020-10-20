@@ -30,8 +30,9 @@ export default class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      from: new Date(props.baslama), // new Date(2020, 9, 10),
-      to: new Date(props.bitis), //new Date(2020, 9, 13),
+      // from: new Date(parseInt(props.baslama.substring(6,10)),parseInt(props.baslama.substring(3,5))-1,parseInt(props.baslama.substring(0,2))), // 
+      // to: new Date(parseInt(props.bitis.substring(6,10)),parseInt(props.bitis.substring(3,5))-1,parseInt(props.bitis.substring(0,2))),//new Date(props.bitis), //
+     
     };
   }
 
@@ -42,7 +43,9 @@ export default class Example extends React.Component {
         backgroundColor: "#fffdee",
       },
     };
-    const { from, to } = this.state;
+    // const { from, to } = this.state;
+    const from = new Date(parseInt(this.props.baslama.substring(6,10)),parseInt(this.props.baslama.substring(3,5))-1,parseInt(this.props.baslama.substring(0,2)));
+    const to =new Date(parseInt(this.props.bitis.substring(6,10)),parseInt(this.props.bitis.substring(3,5))-1,parseInt(this.props.bitis.substring(0,2)))
     const modifiers = { start: from, end: to, weekend: { daysOfWeek: [0, 6] } };
     return (
       <div className="RangeExample">

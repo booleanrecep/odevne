@@ -92,19 +92,20 @@ class App extends React.Component {
 
   onEditState = (e) => {
     e.preventDefault();
-    let findedClassroom = this.state.data.find(({ homeworks }) =>
+    const findedClassroom = this.state.data.find(({ homeworks }) =>
       homeworks.find(({ id }) => id === parseInt(e.target.id))
     );
-    let findHomework = findedClassroom.homeworks.find(
-      (hw) => parseInt(hw.id) === parseInt(e.target.id)
+    const findHomework = findedClassroom.homeworks.find(
+      (homework) => parseInt(homework.id) === parseInt(e.target.id)
     );
-    let baslama = this.changeDateFormat(findHomework.baslama);
-    let bitis = this.changeDateFormat(findHomework.bitis);
-
+    const baslama =`${findHomework.baslama.substring(6,10)}-${findHomework.baslama.substring(3,5)}-${findHomework.baslama.substring(0,2)}`
+    const bitis =`${findHomework.bitis.substring(6,10)}-${findHomework.bitis.substring(3,5)}-${findHomework.bitis.substring(0,2)}`
+    
     this.setState({
       editState: Object.assign({ ...findHomework }, { baslama, bitis }),
       openEdit: true,
     });
+    
   };
   handleChange = (e) => {
     e.preventDefault();
@@ -119,12 +120,19 @@ class App extends React.Component {
   };
 
   handleSubmit = () => {
+    console.log(this.state.editState)
     const newData = this.state.data.map((cls) => {
       const editedClassroom = cls.homeworks.map((homework) => {
         const editedHomework =
           parseInt(homework.id) === parseInt(this.state.editState.id)
-            ? this.state.editState
+            ? (
+              // homework.baslama=`${homework.baslama.substring(8,10)}.${homework.baslama.substring(5,7)}.${homework.baslama.substring(0,4)}`,
+              // homework.bitis=`${homework.bitis.substring(8,10)}.${homework.bitis.substring(5,7)}.${homework.bitis.substring(0,4)}`,
+              this.state.editState
+              )
             : homework;
+            // editedHomework.baslama=`${editedHomework.baslama.substring(8,10)}.${editedHomework.baslama.substring(5,7)}.${editedHomework.baslama.substring(0,4)}`
+            // editedHomework.bitis=`${editedHomework.bitis.substring(8,10)}.${editedHomework.bitis.substring(5,7)}.${editedHomework.bitis.substring(0,4)}`
         return editedHomework;
       });
       cls.homeworks = editedClassroom;
@@ -156,10 +164,10 @@ class App extends React.Component {
     this.setState({ activeDrags: --this.state.activeDrags });
     return false;
   };
-
   render() {
     const { classes } = this.props;
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    console.log(this.state)
     return (
       <Router>
         <div>
