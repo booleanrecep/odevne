@@ -72,8 +72,10 @@ const EditHomework = (props) => {
               label="Başlama Tarihi"
               type="date"
               inputProps={{
-                min: "0000-10-13",
-                max: "0000-12-31",
+                min: `${new Date().toISOString().substring(0, 10)}`,
+                max: new Date(new Date().setDate(new Date().getDate() + 7))
+                  .toISOString()
+                  .substring(0, 10),
               }}
               InputLabelProps={{
                 shrink: true,
@@ -88,8 +90,10 @@ const EditHomework = (props) => {
               label="Bitiş Tarihi"
               type="date"
               inputProps={{
-                min: "0000-10-13",
-                max: "0000-12-31",
+                min: `${new Date().toISOString().substring(0, 10)}`,
+                max: new Date(new Date().setDate(new Date().getDate() + 14))
+                  .toISOString()
+                  .substring(0, 10),
               }}
               InputLabelProps={{
                 shrink: true,

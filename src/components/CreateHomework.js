@@ -13,7 +13,7 @@ import {
   Select,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-
+import PropTypes from "prop-types";
 const styles = (theme) => ({
   konu: {
     width: "14em",
@@ -28,6 +28,7 @@ const styles = (theme) => ({
     },
   },
 });
+
 class CreateHomework extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,6 @@ class CreateHomework extends React.Component {
       konu: "",
       odev: "",
     };
-    this.editState = props.editState;
     this.newState = props.homeworkState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -50,9 +50,11 @@ class CreateHomework extends React.Component {
     e.preventDefault();
     this.newState.map((cls) => {
       cls.classroom === this.state.sinif
-        ? cls.homeworks.push(this.state)
+        ? cls.homeworks.unshift(this.state)
         : null;
     });
+    console.log(this.state.id);
+
     this.setState({
       id: "",
       sinif: "",
@@ -106,6 +108,10 @@ class CreateHomework extends React.Component {
                   width: "5em",
                 }}
               >
+                <MenuItem value={""}>
+                  {" "}
+                  <span>&#127809;</span>{" "}
+                </MenuItem>
                 <MenuItem value={"5-A"}>5/A</MenuItem>
                 <MenuItem value={"5-B"}>5/B</MenuItem>
                 <MenuItem value={"6-B"}>6/B</MenuItem>
@@ -120,8 +126,10 @@ class CreateHomework extends React.Component {
                 label="Başlama Tarihi"
                 type="date"
                 inputProps={{
-                  min: "0000-10-13",
-                  max: "0000-12-31",
+                  min: `${new Date().toISOString().substring(0, 10)}`,
+                  max: new Date(new Date().setDate(new Date().getDate() + 7))
+                    .toISOString()
+                    .substring(0, 10),
                 }}
                 InputLabelProps={{
                   shrink: true,
@@ -136,8 +144,10 @@ class CreateHomework extends React.Component {
                 label="Bitiş Tarihi"
                 type="date"
                 inputProps={{
-                  min: "0000-10-13",
-                  max: "0000-12-31",
+                  min: `${new Date().toISOString().substring(0, 10)}`,
+                  max: new Date(new Date().setDate(new Date().getDate() + 14))
+                    .toISOString()
+                    .substring(0, 10),
                 }}
                 InputLabelProps={{
                   shrink: true,
@@ -185,4 +195,11 @@ class CreateHomework extends React.Component {
   }
 }
 
+// CreateHomework.propTypes = {
+//   sinif: PropTypes.string.isRequired,
+//   baslama: PropTypes.string.isRequired,
+//   bitis:PropTypes.string.isRequired,
+//   konu:PropTypes.string.isRequired,
+//   odev:PropTypes.string.isRequired,
+// };
 export default withStyles(styles)(CreateHomework);

@@ -69,10 +69,6 @@ class App extends React.Component {
       openEdit: false,
       openCreate: false,
       activeDrags: 0,
-      deltaPosition: {
-        x: 0,
-        y: 0,
-      },
     };
     this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
