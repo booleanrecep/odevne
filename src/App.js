@@ -181,27 +181,6 @@ class App extends React.Component {
           <Helmet>
             <link rel="icon" type="image/png" href={favicon} sizes="16x16" />
             <meta charSet="utf-8" />
-            <meta property="og:url" content="https://odevne.netlify.app/#/" />
-            <meta property="og:type" content="article" />
-            <meta property="og:title" content="Ödev Takip Uygulaması" />
-            <meta
-              property="og:description"
-              content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
-            />
-            <meta property="og:image" content="%PUBLIC_URL%/op.jpg" />
-
-            <meta name="twitter:card" content="summary" />
-            <meta property="twitter:title" content="Ödev Takip Uygulaması" />
-            <meta
-              property="twitter:description"
-              content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
-            />
-            <meta property="twitter:image" content="%PUBLIC_URL%/op.jpg" />
-            <meta
-              property="twitter:url"
-              content="https://odevne.netlify.app/#/"
-            />
-
             <title>ÖDEV NE</title>
           </Helmet>
           <div style={{ marginBottom: "5em" }}>
