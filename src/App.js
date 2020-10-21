@@ -188,7 +188,7 @@ class App extends React.Component {
               property="og:description"
               content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
             />
-            <meta property="og:image" content={open_graph_img} />
+            <meta property="og:image" content="%PUBLIC_URL%/op.jpg" />
 
             <meta name="twitter:card" content="summary" />
             <meta property="twitter:title" content="Ödev Takip Uygulaması" />
@@ -196,7 +196,7 @@ class App extends React.Component {
               property="twitter:description"
               content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
             />
-            <meta property="twitter:image" content={open_graph_img} />
+            <meta property="twitter:image" content="%PUBLIC_URL%/op.jpg" />
             <meta
               property="twitter:url"
               content="https://odevne.netlify.app/#/"
