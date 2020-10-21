@@ -1,4 +1,12 @@
+
+# ReactJS Homework Follow App     
+![Classrooms Page](op.png?raw=true "Classrooms Page")
+
+![Homework Page](hw.png?raw=true "Homework Page")
+### <a href="https://odevne.netlify.app/">LIVE DEMO</a> 
+
 ## Öğretmen ve Öğrenciler İçin Ödev Takip Sitesi 
+
 #### Yapabilecekleriniz :
 * Ödev Ekle
 * Ödev Düzenle
