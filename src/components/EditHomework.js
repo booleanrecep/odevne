@@ -131,7 +131,7 @@ const EditHomework = (props) => {
           <Button onClick={closeIt} color="secondary">
             İPTAL
           </Button>
-          <Button onClick={(e) => handleSubmit(e)} color="default">
+          <Button onClick={handleSubmit} color="default">
             EKLE
           </Button>
         </DialogActions>
