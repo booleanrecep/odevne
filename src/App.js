@@ -44,7 +44,6 @@ const styles = (theme) => ({
   footer: {
     position: "relative",
     bottom: "0",
-    // padding: "0.5em",
     height: "6.7em",
     width: "100%",
     backgroundColor: "#BEE6E2",
@@ -92,14 +91,26 @@ class App extends React.Component {
 
   onEditState = (e) => {
     e.preventDefault();
-    let findedClassroom = this.state.data.find(({ homeworks }) =>
+    const findedClassroom = this.state.data.find(({ homeworks }) =>
       homeworks.find(({ id }) => id === parseInt(e.target.id))
     );
-    let findHomework = findedClassroom.homeworks.find(
-      (hw) => parseInt(hw.id) === parseInt(e.target.id)
+    const findHomework = findedClassroom.homeworks.find(
+      (homework) => parseInt(homework.id) === parseInt(e.target.id)
     );
-    let baslama = this.changeDateFormat(findHomework.baslama);
-    let bitis = this.changeDateFormat(findHomework.bitis);
+    const baslama = `${findHomework.baslama.substring(
+      6,
+      10
+    )}-${findHomework.baslama.substring(3, 5)}-${findHomework.baslama.substring(
+      0,
+      2
+    )}`;
+    const bitis = `${findHomework.bitis.substring(
+      6,
+      10
+    )}-${findHomework.bitis.substring(3, 5)}-${findHomework.bitis.substring(
+      0,
+      2
+    )}`;
 
     this.setState({
       editState: Object.assign({ ...findHomework }, { baslama, bitis }),
@@ -119,11 +130,26 @@ class App extends React.Component {
   };
 
   handleSubmit = () => {
+    let editedHomework;
     const newData = this.state.data.map((cls) => {
       const editedClassroom = cls.homeworks.map((homework) => {
-        const editedHomework =
+        editedHomework =
           parseInt(homework.id) === parseInt(this.state.editState.id)
-            ? this.state.editState
+            ? ((this.state.editState.baslama = `${this.state.editState.baslama.substring(
+                8,
+                10
+              )}.${this.state.editState.baslama.substring(
+                5,
+                7
+              )}.${this.state.editState.baslama.substring(0, 4)}`),
+              (this.state.editState.bitis = `${this.state.editState.bitis.substring(
+                8,
+                10
+              )}.${this.state.editState.bitis.substring(
+                5,
+                7
+              )}.${this.state.editState.bitis.substring(0, 4)}`),
+              this.state.editState)
             : homework;
         return editedHomework;
       });
@@ -156,7 +182,6 @@ class App extends React.Component {
     this.setState({ activeDrags: --this.state.activeDrags });
     return false;
   };
-
   render() {
     const { classes } = this.props;
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
