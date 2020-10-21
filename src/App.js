@@ -1,8 +1,6 @@
 import React from "react";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TrDate from "tr-date";
 import Draggable from "react-draggable";
@@ -12,6 +10,8 @@ import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
+import Seo from "./components/Seo";
+
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
@@ -177,11 +177,8 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Helmet>
-            <link rel="icon" type="image/png" href={favicon} sizes="16x16" />
-            <meta charSet="utf-8" />
-            <title>ÖDEV NE</title>
-          </Helmet>
+          {/* Helmet */}
+          <Seo />
           <div style={{ marginBottom: "5em" }}>
             <Appbar handleClickOpenCreate={this.handleClickOpenCreate} />
           </div>
