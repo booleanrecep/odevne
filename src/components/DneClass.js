@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
 
-export default function DneClass({ img, classroom }) {
+const DneClass = ({ img, classroom }) => {
   return (
     <Grid item xs={12} sm={6} lg={3}>
       <Card>
@@ -42,4 +42,5 @@ export default function DneClass({ img, classroom }) {
       </Card>
     </Grid>
   );
-}
+};
+export default DneClass;

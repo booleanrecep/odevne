@@ -26,7 +26,7 @@ const FIRST_DAY_OF_WEEK = {
   tr: 1,
 };
 
-const Calender = (props) => {
+const Calender = ({ baslama, bitis }) => {
   const modifiersStyles = {
     weekend: {
       color: "#ffc107",
@@ -34,14 +34,14 @@ const Calender = (props) => {
     },
   };
   const from = new Date(
-    parseInt(props.baslama.substring(6, 10)),
-    parseInt(props.baslama.substring(3, 5)) - 1,
-    parseInt(props.baslama.substring(0, 2))
+    parseInt(baslama.substring(6, 10)),
+    parseInt(baslama.substring(3, 5)) - 1,
+    parseInt(baslama.substring(0, 2))
   );
   const to = new Date(
-    parseInt(props.bitis.substring(6, 10)),
-    parseInt(props.bitis.substring(3, 5)) - 1,
-    parseInt(props.bitis.substring(0, 2))
+    parseInt(bitis.substring(6, 10)),
+    parseInt(bitis.substring(3, 5)) - 1,
+    parseInt(bitis.substring(0, 2))
   );
   const modifiers = { start: from, end: to, weekend: { daysOfWeek: [0, 6] } };
   return (
@@ -53,7 +53,6 @@ const Calender = (props) => {
         weekdaysShort={WEEKDAYS_SHORT["tr"]}
         firstDayOfWeek={FIRST_DAY_OF_WEEK["tr"]}
         className="Selectable"
-        numberOfMonths={props.numberOfMonths}
         selectedDays={[from, { from, to }]}
       />
       <Helmet>
