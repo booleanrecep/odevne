@@ -48,16 +48,19 @@ class CreateHomework extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const bs = this.state.baslama
-    const bt = this.state.bitis
-    this.state.baslama=`${bs.substring(8,10)}.${bs.substring(5,7)}.${bs.substring(0,4)}`
-    this.state.bitis=`${bt.substring(8,10)}.${bt.substring(5,7)}.${bt.substring(0,4)}`
+    const bs = this.state.baslama;
+    const bt = this.state.bitis;
+    this.state.baslama = `${bs.substring(8, 10)}.${bs.substring(
+      5,
+      7
+    )}.${bs.substring(0, 4)}`;
+    this.state.bitis = `${bt.substring(8, 10)}.${bt.substring(
+      5,
+      7
+    )}.${bt.substring(0, 4)}`;
     this.newState.map((cls) => {
       cls.classroom === this.state.sinif
-        ?(         
-          
-          cls.homeworks.unshift(this.state)
-        ) 
+        ? cls.homeworks.unshift(this.state)
         : null;
     });
 
@@ -83,7 +86,7 @@ class CreateHomework extends React.Component {
   };
 
   render() {
-    const { openIt, closeIt,classes } = this.props;
+    const { openIt, closeIt, classes } = this.props;
     const { sinif, baslama, bitis, konu, odev } = this.state;
     return (
       <div>
@@ -132,7 +135,7 @@ class CreateHomework extends React.Component {
                 type="date"
                 inputProps={{
                   min: `${new Date().toISOString().substring(0, 10)}`,
-                  max:`${new Date(new Date().setDate(new Date().getDate() + 7))
+                  max: `${new Date(new Date().setDate(new Date().getDate() + 7))
                     .toISOString()
                     .substring(0, 10)}`,
                 }}
@@ -150,7 +153,9 @@ class CreateHomework extends React.Component {
                 type="date"
                 inputProps={{
                   min: `${new Date().toISOString().substring(0, 10)}`,
-                  max:`${new Date(new Date().setDate(new Date().getDate() + 14))
+                  max: `${new Date(
+                    new Date().setDate(new Date().getDate() + 14)
+                  )
                     .toISOString()
                     .substring(0, 10)}`,
                 }}
