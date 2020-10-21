@@ -11,7 +11,7 @@ module.exports={
         rules:[
         {
             test:/\.(js|jsx)$/,
-            exclude:/node_modules/,
+            exclude:/(node_modules)/,
             use:{
                 loader:"babel-loader"
             }
@@ -28,8 +28,16 @@ module.exports={
             test:/\.css$/,
             use:["style-loader","css-loader"]
         },
-        {test: /\.(jpe?g|png|gif|svg)$/i, 
-            use:["file-loader"]
+        {test: /\.(jpg|png|gif|svg)$/i, 
+            use:[
+                {
+                    loader:"file-loader",
+                    options: {
+                        name: '[name].[ext]'
+                      } 
+                }
+            ]
+             
     
         },
     ]},
@@ -44,7 +52,7 @@ module.exports={
     devServer:{
         contentBase:path.join(__dirname,"public"),
         port:3000,
-        historyApiFallback: true
+        // historyApiFallback: true
     }
 
     
