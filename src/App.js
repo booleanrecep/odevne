@@ -12,7 +12,6 @@ import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
-import open_graph_img from "./images/imgs/op.jpg";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
