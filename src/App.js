@@ -12,6 +12,7 @@ import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
+import open_graph_img from "./images/imgs/op.jpg";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
@@ -180,6 +181,27 @@ class App extends React.Component {
           <Helmet>
             <link rel="icon" type="image/png" href={favicon} sizes="16x16" />
             <meta charSet="utf-8" />
+            <meta property="og:url" content="https://odevne.netlify.app/#/" />
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content="Ödev Takip Uygulaması" />
+            <meta
+              property="og:description"
+              content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
+            />
+            <meta property="og:image" content={open_graph_img} />
+
+            <meta name="twitter:card" content="summary" />
+            <meta property="twitter:title" content="Ödev Takip Uygulaması" />
+            <meta
+              property="twitter:description"
+              content="Öğrenci ve Öğretmenler İçin Ödev Takibi"
+            />
+            <meta property="twitter:image" content={open_graph_img} />
+            <meta
+              property="twitter:url"
+              content="https://odevne.netlify.app/#/"
+            />
+
             <title>ÖDEV NE</title>
           </Helmet>
           <div style={{ marginBottom: "5em" }}>
