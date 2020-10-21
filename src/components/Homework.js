@@ -49,7 +49,6 @@ export default function Homework(props) {
   } = props;
   const [fav, setFav] = React.useState({ favColor: "", favNum: "0" });
   const today = new TrDate();
-
   return (
     <Grid item xs={12} sm={6} lg={3}>
       <Card>
@@ -65,7 +64,7 @@ export default function Homework(props) {
                 style={{
                   marginLeft: "9em",
                   color:
-                    bitis.substring(8, 10) > today.getDate() ? "green" : "grey",
+                    bitis > today.getFullDate(".") ? "green" : "grey",
                 }}
               />
               <Typography
