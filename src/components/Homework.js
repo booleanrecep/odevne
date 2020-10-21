@@ -35,18 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Homework(props) {
+const Homework = ({
+  onEditState,
+  onDeleteState,
+  id,
+  sinif,
+  baslama,
+  bitis,
+  konu,
+  odev,
+}) => {
   const classes = useStyles();
-  const {
-    onEditState,
-    onDeleteState,
-    id,
-    sinif,
-    baslama,
-    bitis,
-    konu,
-    odev,
-  } = props;
   const [fav, setFav] = React.useState({ favColor: "", favNum: "0" });
   const today = new TrDate();
   return (
@@ -63,8 +62,7 @@ export default function Homework(props) {
               <TimelapseRoundedIcon
                 style={{
                   marginLeft: "9em",
-                  color:
-                    bitis > today.getFullDate(".") ? "green" : "grey",
+                  color: bitis > today.getFullDate(".") ? "green" : "grey",
                 }}
               />
               <Typography
@@ -154,4 +152,5 @@ export default function Homework(props) {
       </Card>
     </Grid>
   );
-}
+};
+export default Homework;

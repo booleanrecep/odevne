@@ -29,9 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditHomework = (props) => {
+const EditHomework = ({
+  openIt,
+  closeIt,
+  editState,
+  handleChangeEdit,
+  handleSubmitEdit,
+}) => {
   const classes = useStyles();
-  const { openIt, closeIt, editState, handleChange, handleSubmit } = props;
+
   const { sinif, baslama, bitis, konu, odev } = editState;
 
   return (
@@ -52,7 +58,7 @@ const EditHomework = (props) => {
             <Select
               labelId="demo-simple-select-label"
               value={sinif}
-              onChange={handleChange}
+              onChange={handleChangeEdit}
               autoWidth
               inputProps={{
                 name: "sinif",
@@ -65,7 +71,7 @@ const EditHomework = (props) => {
             </Select>
 
             <TextField
-              onChange={handleChange}
+              onChange={handleChangeEdit}
               margin="dense"
               value={baslama}
               name="baslama"
@@ -83,7 +89,7 @@ const EditHomework = (props) => {
               style={{ width: "10em" }}
             />
             <TextField
-              onChange={handleChange}
+              onChange={handleChangeEdit}
               margin="dense"
               name="bitis"
               value={bitis}
@@ -101,7 +107,7 @@ const EditHomework = (props) => {
               style={{ width: "10em" }}
             />
             <TextField
-              onChange={handleChange}
+              onChange={handleChangeEdit}
               value={konu}
               margin="dense"
               name="konu"
@@ -113,7 +119,7 @@ const EditHomework = (props) => {
               className={classes.konu}
             />
             <TextField
-              onChange={handleChange}
+              onChange={handleChangeEdit}
               value={odev}
               margin="dense"
               name="odev"
@@ -131,7 +137,7 @@ const EditHomework = (props) => {
           <Button onClick={closeIt} color="secondary">
             İPTAL
           </Button>
-          <Button onClick={(e) => handleSubmit(e)} color="default">
+          <Button onClick={handleSubmitEdit} color="default">
             EKLE
           </Button>
         </DialogActions>

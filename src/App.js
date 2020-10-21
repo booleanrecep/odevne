@@ -1,28 +1,17 @@
 import React from "react";
-import {
-  Tooltip,
-  Grid,
-  Fab,
-  Typography,
-  withStyles,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Avatar,
-} from "@material-ui/core";
+import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import favicon from "./images/favicon.png";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
+import TrDate from "tr-date";
+import Draggable from "react-draggable";
 
+import Appbar from "./components/Appbar";
 import DneClass from "./components/DneClass";
 import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
-import TrDate from "tr-date";
-import Draggable from "react-draggable";
-import recep from "./images/recep.png";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
@@ -73,7 +62,7 @@ class App extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onEditState = this.onEditState.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
     this.changeDateFormat = this.changeDateFormat.bind(this);
   }
 
@@ -117,7 +106,7 @@ class App extends React.Component {
       openEdit: true,
     });
   };
-  handleChange = (e) => {
+  handleChangeEdit = (e) => {
     e.preventDefault();
     e.persist();
 
@@ -129,7 +118,7 @@ class App extends React.Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmitEdit = () => {
     let editedHomework;
     const newData = this.state.data.map((cls) => {
       const editedClassroom = cls.homeworks.map((homework) => {
@@ -194,51 +183,7 @@ class App extends React.Component {
             <title>ÖDEV NE</title>
           </Helmet>
           <div style={{ marginBottom: "5em" }}>
-            <AppBar position="fixed">
-              <Toolbar>
-                <Link to="/">
-                  <IconButton
-                    edge="start"
-                    className={classes.menuButton}
-                    color="inherit"
-                    aria-label="open drawer"
-                  >
-                    <Avatar src={recep} />
-                  </IconButton>
-                </Link>
-                {window.innerWidth <= 364 ? (
-                  <Typography className={classes.title} variant="h6" noWrap>
-                    DNE ORTAOKULU
-                    <br />
-                    RECEP HOCA
-                    <Tooltip
-                      title="Yeni Ödev Oluştur"
-                      aria-label="yeni-odev"
-                      className={classes.absoluteTop}
-                      onClick={this.handleClickOpenCreate}
-                    >
-                      <Fab color="secondary">
-                        <NoteAddOutlinedIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Typography>
-                ) : (
-                  <Typography className={classes.title} variant="h6" noWrap>
-                    DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA
-                    <Tooltip
-                      title="Yeni Ödev Oluştur"
-                      aria-label="yeni-odev"
-                      className={classes.absoluteTop}
-                      onClick={this.handleClickOpenCreate}
-                    >
-                      <Fab color="secondary">
-                        <NoteAddOutlinedIcon />
-                      </Fab>
-                    </Tooltip>
-                  </Typography>
-                )}
-              </Toolbar>
-            </AppBar>
+            <Appbar handleClickOpenCreate={this.handleClickOpenCreate} />
           </div>
           <Grid container spacing={2}>
             <Switch>
@@ -310,8 +255,8 @@ class App extends React.Component {
               editState={this.state.editState}
               closeIt={this.handleClose}
               openIt={this.state.openEdit}
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
+              handleChangeEdit={this.handleChangeEdit}
+              handleSubmitEdit={this.handleSubmitEdit}
             />
           </Grid>
         </div>
