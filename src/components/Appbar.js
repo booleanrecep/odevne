@@ -52,7 +52,7 @@ const Appbar = ({ handleClickOpenCreate }) => {
               title="Yeni Ödev Oluştur"
               aria-label="yeni-odev"
               className={classes.absoluteTop}
-              onClick={this.handleClickOpenCreate}
+              onClick={handleClickOpenCreate}
             >
               <Fab color="secondary">
                 <NoteAddOutlinedIcon />
