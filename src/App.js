@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TrDate from "tr-date";
 import Draggable from "react-draggable";
@@ -174,6 +174,7 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+
     return (
       <Router>
         <div>
@@ -217,14 +218,15 @@ class App extends React.Component {
               {this.state.data &&
                 this.state.data.map(({ classroom, homeworks }) => {
                   return (
-                    <Route exact path={`/odevler/${classroom}`}>
-                      {homeworks.map((homework) => (
-                        <Homework
-                          onEditState={this.onEditState}
-                          onDeleteState={this.onDelete}
-                          {...homework}
-                        />
-                      ))}
+                    <Route path={`/odevler/${classroom}`}>
+                      {homeworks &&
+                        homeworks.map((homework) => (
+                          <Homework
+                            onEditState={this.onEditState}
+                            onDeleteState={this.onDelete}
+                            {...homework}
+                          />
+                        ))}
                       <Link to="/">
                         <Draggable {...dragHandlers}>
                           <Tooltip
