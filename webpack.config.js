@@ -33,7 +33,7 @@ module.exports={
                 {
                     loader:"file-loader",
                     options: {
-                        name: '[name].[ext]'
+                        name: 'images/[name].[ext]'
                       } 
                 }
             ]
@@ -52,7 +52,7 @@ module.exports={
     devServer:{
         contentBase:path.join(__dirname,"public"),
         port:3000,
-        // historyApiFallback: true
+        historyApiFallback: true
     }
 
     
