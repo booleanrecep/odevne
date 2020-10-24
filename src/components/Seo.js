@@ -20,7 +20,7 @@ const Seo = () => {
       />
       <meta
         property="og:image"
-        content={assets.op}
+        content="https://raw.githubusercontent.com/booleanrecep/odevne/master/op.png"
       />
 
       <meta name="twitter:card" content="summary" />
@@ -31,7 +31,7 @@ const Seo = () => {
       />
       <meta
         property="twitter:image"
-        content={assets.op}
+        content="https://raw.githubusercontent.com/booleanrecep/odevne/master/op.png"
       />
       <meta property="twitter:url" content="https://odevne.netlify.app/" />
     </Helmet>
