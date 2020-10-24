@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import recep from "../images/recep.png";
-
+import op from "../images/op.png";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -41,6 +41,7 @@ const Appbar = ({ INNER_WIDTH,handleClickOpenCreate }) => {
             aria-label="open drawer"
           >
             <Avatar src={recep} />
+            <Avatar src={op} style={{display:"none"}}/>
           </IconButton>
         </Link>
         {INNER_WIDTH <= 364 ? (

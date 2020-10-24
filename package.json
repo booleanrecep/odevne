@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "webpack-dev-server --open --mode development --config webpack.config.js",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production --config webpack.config.js",
     "fix": "prettier --write src/**/*.js  src/**/*.css"
   },
   "author": "Recep",
