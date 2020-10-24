@@ -41,6 +41,7 @@ const Appbar = ({ handleClickOpenCreate }) => {
             aria-label="open drawer"
           >
             <Avatar src={recep} />
+            <Avatar src={op} style={{display:"none"}}/>
           </IconButton>
         </Link>
         {window.innerWidth <= 364 ? (
