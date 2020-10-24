@@ -22,6 +22,14 @@ const Seo = () => {
         property="og:image"
         content="https://raw.githubusercontent.com/booleanrecep/odevne/master/op.png"
       />
+    <meta
+        property="og:image:width"
+        content="800"
+      />
+    <meta
+        property="og:image:height"
+        content="400"
+      />
 
       <meta name="twitter:card" content="summary" />
       <meta property="twitter:title" content="Ödev Takip Uygulaması" />
