@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TrDate from "tr-date";
 import Draggable from "react-draggable";
@@ -11,14 +11,14 @@ import Homework from "./components/Homework";
 import CreateHomework from "./components/CreateHomework";
 import EditHomework from "./components/EditHomework";
 import Seo from "./components/Seo";
-
+import LandingPage from "./components/LandingPage";
 const styles = (theme) => ({
   absolute: {
     position: "fixed",
     bottom: theme.spacing(3),
     right: theme.spacing(3),
     [theme.breakpoints.up("sm")]: {
-      display:"none"
+      display: "none",
     },
   },
   menuButton: {
@@ -47,11 +47,10 @@ const styles = (theme) => ({
     [theme.breakpoints.down("sm")]: {
       left: "18%",
     },
-  
   },
 });
 
-const INNER_WIDTH=364 //For mobile screens
+const INNER_WIDTH = window.outerWidth; //For mobile screens
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -185,15 +184,26 @@ class App extends React.Component {
         <div>
           {/* Helmet */}
           <Seo />
-          <div style={{ marginBottom: "5em" }}>
-            <Appbar INNER_WIDTH={INNER_WIDTH} handleClickOpenCreate={this.handleClickOpenCreate} />
-          </div>
+
           <Grid container spacing={2}>
             <Switch>
               <Route exact path="/">
-                {this.state.data.map((dt) => {
-                  return <DneClass {...dt} />;
-                })}
+                <LandingPage />
+              </Route>
+              <Route path="/odevler">
+                <Appbar
+                  INNER_WIDTH={INNER_WIDTH}
+                  handleClickOpenCreate={this.handleClickOpenCreate}
+                />
+                <Grid
+                  container
+                  spacing={3}
+                  style={{ marginTop: "4em", marginBottom: "1em" }}
+                >
+                  {this.state.data.map((dt) => {
+                    return <DneClass {...dt} />;
+                  })}
+                </Grid>
                 <Grid item xs={12} className={classes.footer}>
                   <Typography
                     color="textSecondary"
@@ -232,18 +242,17 @@ class App extends React.Component {
                             {...homework}
                           />
                         ))}
-                        
                         <Draggable {...dragHandlers}>
-                          <Link to="/">
-                              <Tooltip
-                                title="Anasayfa"
-                                aria-label="anasayfa"
-                                className={classes.absolute}
-                              >
-                                <Fab color="secondary">
-                                  <ArrowBackIcon />
-                                </Fab>
-                              </Tooltip>
+                          <Link to="/odevler">
+                            <Tooltip
+                              title="Anasayfa"
+                              aria-label="anasayfa"
+                              className={classes.absolute}
+                            >
+                              <Fab color="secondary">
+                                <ArrowBackIcon />
+                              </Fab>
+                            </Tooltip>
                           </Link>
                         </Draggable>
                     </Route>

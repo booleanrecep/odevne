@@ -6,10 +6,11 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link,useRouteMatch} from "react-router-dom";
 import Lottie from "react-lottie";
 
 const DneClass = ({ img, classroom }) => {
+  const {path}=useRouteMatch()
   return (
     <Grid item xs={12} sm={6} lg={3}>
       <Card>
@@ -24,7 +25,7 @@ const DneClass = ({ img, classroom }) => {
               {`${classroom} SINIFI ÖDEVLERİ`}
             </Typography>
           </CardContent>
-          <Link to={`/odevler/${classroom}`}>
+          <Link to={`${path}/${classroom}`} >
             <Lottie
               width={"100%"}
               height={"27em"}

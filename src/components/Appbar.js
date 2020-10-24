@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
-import recep from "../images/recep.png";
+import AccountBalanceTwoToneIcon from "@material-ui/icons/AccountBalanceTwoTone";
 import op from "../images/op.png";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -28,23 +28,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Appbar = ({ INNER_WIDTH,handleClickOpenCreate }) => {
+const Appbar = ({ INNER_WIDTH, handleClickOpenCreate }) => {
   const classes = useStyles();
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" style={{ marginBottom: "5em" }}>
       <Toolbar>
         <Link to="/">
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color="inherit"
+            // color="inherit"
             aria-label="open drawer"
           >
-            <Avatar src={recep} />
-            <Avatar src={op} style={{display:"none"}}/>
+            <Fab>
+              <AccountBalanceTwoToneIcon />
+            </Fab>
+            <Avatar src={op} style={{ display: "none" }} />
           </IconButton>
         </Link>
-        {INNER_WIDTH <= 364 ? (
+        {INNER_WIDTH <= 499 ? (
           <Typography className={classes.title} variant="h6" noWrap>
             DNE ORTAOKULU
             <br />
