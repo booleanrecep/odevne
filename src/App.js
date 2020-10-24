@@ -17,6 +17,9 @@ const styles = (theme) => ({
     position: "fixed",
     bottom: theme.spacing(3),
     right: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      display:"none"
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -44,9 +47,11 @@ const styles = (theme) => ({
     [theme.breakpoints.down("sm")]: {
       left: "18%",
     },
+  
   },
 });
 
+const INNER_WIDTH=364 //For mobile screens
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -181,7 +186,7 @@ class App extends React.Component {
           {/* Helmet */}
           <Seo />
           <div style={{ marginBottom: "5em" }}>
-            <Appbar handleClickOpenCreate={this.handleClickOpenCreate} />
+            <Appbar INNER_WIDTH={INNER_WIDTH} handleClickOpenCreate={this.handleClickOpenCreate} />
           </div>
           <Grid container spacing={2}>
             <Switch>
@@ -227,19 +232,20 @@ class App extends React.Component {
                             {...homework}
                           />
                         ))}
-                      <Link to="/">
+                        
                         <Draggable {...dragHandlers}>
-                          <Tooltip
-                            title="Anasayfa"
-                            aria-label="anasayfa"
-                            className={classes.absolute}
-                          >
-                            <Fab color="secondary">
-                              <ArrowBackIcon />
-                            </Fab>
-                          </Tooltip>
+                          <Link to="/">
+                              <Tooltip
+                                title="Anasayfa"
+                                aria-label="anasayfa"
+                                className={classes.absolute}
+                              >
+                                <Fab color="secondary">
+                                  <ArrowBackIcon />
+                                </Fab>
+                              </Tooltip>
+                          </Link>
                         </Draggable>
-                      </Link>
                     </Route>
                   );
                 })}

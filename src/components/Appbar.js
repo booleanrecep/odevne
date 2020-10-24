@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Appbar = ({ handleClickOpenCreate }) => {
+const Appbar = ({ INNER_WIDTH,handleClickOpenCreate }) => {
   const classes = useStyles();
   return (
     <AppBar position="fixed">
@@ -43,7 +43,7 @@ const Appbar = ({ handleClickOpenCreate }) => {
             <Avatar src={recep} />
           </IconButton>
         </Link>
-        {window.innerWidth <= 364 ? (
+        {INNER_WIDTH <= 364 ? (
           <Typography className={classes.title} variant="h6" noWrap>
             DNE ORTAOKULU
             <br />
