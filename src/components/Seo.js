@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import favicon from "../images/favicon.png";
-import { assets } from "../images/svg/ecology/index";
+// import { assets } from "../images/svg/ecology/index";
 
 const Seo = () => {
   return (
@@ -11,7 +11,7 @@ const Seo = () => {
       <meta charSet="utf-8" />
       <title>ÖDEV NE?</title>
       <meta name="description" content="Ödev Takip Uygulaması" />
-      <meta property="og:url" content="https://odevne.netlify.app/" />
+      {/* <meta property="og:url" content="https://odevne.netlify.app/" />
       <meta property="og:type" content="article" />
       <meta property="og:title" content="Ödev Takip Uygulaması" />
       <meta
@@ -33,7 +33,7 @@ const Seo = () => {
         property="twitter:image"
         content={assets.op}
       />
-      <meta property="twitter:url" content="https://odevne.netlify.app/" />
+      <meta property="twitter:url" content="https://odevne.netlify.app/" /> */}
     </Helmet>
   );
 };
