@@ -17,6 +17,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "react": "^16.13.1",
+    "react-canvas-draw": "^1.1.1",
     "react-day-picker": "^7.4.8",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",

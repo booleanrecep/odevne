@@ -18,18 +18,7 @@ import {
 } from "@material-ui/core";
 import Calender from "./Calender";
 import TrDate from "tr-date";
-
 const useStyles = makeStyles((theme) => ({
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
   avatar: {
     backgroundColor: red[500],
   },
@@ -83,6 +72,7 @@ const Homework = ({
             color: "blue",
             border: "0.1em solid aqua",
             pointerEvents: "none",
+            marginLeft: "0.05em",
           }}
         >
           <Calender baslama={baslama} bitis={bitis} />

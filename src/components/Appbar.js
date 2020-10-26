@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
   absoluteTop: {
     position: "fixed",
-    top: theme.spacing(0.5),
+    top: theme.spacing(1.8),
     right: theme.spacing(3),
   },
 }));
@@ -48,9 +48,9 @@ const Appbar = ({ INNER_WIDTH, handleClickOpenCreate }) => {
         </Link>
         {INNER_WIDTH <= 499 ? (
           <Typography className={classes.title} variant="h6" noWrap>
-            DNE ORTAOKULU
+            ... ORTAOKULU
             <br />
-            RECEP HOCA
+            ... HOCA
             <Tooltip
               title="Yeni Ödev Oluştur"
               aria-label="yeni-odev"
@@ -64,7 +64,7 @@ const Appbar = ({ INNER_WIDTH, handleClickOpenCreate }) => {
           </Typography>
         ) : (
           <Typography className={classes.title} variant="h6" noWrap>
-            DURİYE NURİYE ENDÜRÜST ORTAOKULU - RECEP HOCA
+            ... ... ... ORTAOKULU - ... HOCA
             <Tooltip
               title="Yeni Ödev Oluştur"
               aria-label="yeni-odev"

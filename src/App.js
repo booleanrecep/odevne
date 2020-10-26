@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TrDate from "tr-date";
 import Draggable from "react-draggable";
@@ -175,10 +175,10 @@ class App extends React.Component {
     this.setState({ activeDrags: --this.state.activeDrags });
     return false;
   };
+
   render() {
     const { classes } = this.props;
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
-
     return (
       <Router>
         <div>
@@ -190,7 +190,7 @@ class App extends React.Component {
               <Route exact path="/">
                 <LandingPage />
               </Route>
-              <Route path="/odevler">
+              <Route exact path="/odevler">
                 <Appbar
                   INNER_WIDTH={INNER_WIDTH}
                   handleClickOpenCreate={this.handleClickOpenCreate}
@@ -200,9 +200,11 @@ class App extends React.Component {
                   spacing={3}
                   style={{ marginTop: "4em", marginBottom: "1em" }}
                 >
-                  {this.state.data.map((dt) => {
-                    return <DneClass {...dt} />;
-                  })}
+                  <DneClass
+                    onEditState={this.onEditState}
+                    onDeleteState={this.onEditState}
+                    state={this.state}
+                  />
                 </Grid>
                 <Grid item xs={12} className={classes.footer}>
                   <Typography
@@ -230,18 +232,28 @@ class App extends React.Component {
                   </Typography>
                 </Grid>
               </Route>
+
               {this.state.data &&
                 this.state.data.map(({ classroom, homeworks }) => {
                   return (
                     <Route path={`/odevler/${classroom}`}>
-                      {homeworks &&
-                        homeworks.map((homework) => (
-                          <Homework
-                            onEditState={this.onEditState}
-                            onDeleteState={this.onDelete}
-                            {...homework}
-                          />
-                        ))}
+                      <Appbar
+                        INNER_WIDTH={INNER_WIDTH}
+                        handleClickOpenCreate={this.handleClickOpenCreate}
+                      />
+                      <Grid
+                        container
+                        spacing={2}
+                        style={{ margin: "5em 0.5em 0 1em" }}
+                      >
+                        {homeworks &&
+                          homeworks.map((homework) => (
+                            <Homework
+                              onEditState={this.onEditState}
+                              onDeleteState={this.onDelete}
+                              {...homework}
+                            />
+                          ))}
                         <Draggable {...dragHandlers}>
                           <Link to="/odevler">
                             <Tooltip
@@ -255,6 +267,7 @@ class App extends React.Component {
                             </Tooltip>
                           </Link>
                         </Draggable>
+                      </Grid>
                     </Route>
                   );
                 })}
