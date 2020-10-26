@@ -185,7 +185,7 @@ class App extends React.Component {
           {/* Helmet */}
           <Seo />
 
-          <Grid container spacing={2}>
+          <Grid container>
             <Switch>
               <Route exact path="/">
                 <LandingPage />
@@ -197,8 +197,8 @@ class App extends React.Component {
                 />
                 <Grid
                   container
-                  spacing={3}
-                  style={{ marginTop: "4em", marginBottom: "1em" }}
+                  spacing={2}
+                  style={{ marginTop: "5em", marginBottom: "1em" }}
                 >
                   <DneClass
                     onEditState={this.onEditState}
