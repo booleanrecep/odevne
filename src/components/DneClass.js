@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { Link, useRouteMatch } from "react-router-dom";
 import Lottie from "react-lottie";
-import { makeStyles } from "@material-ui/core/styles";
 const DneClass = ({ state }) => {
   const match = useRouteMatch();
   return (
