@@ -9,7 +9,7 @@ import a8 from "./Asset8.svg";
 import a9 from "./Asset9.svg";
 import a10 from "./Asset10.svg";
 import a11 from "./Asset11.svg";
-import op from "./op.png"
+import op from "./op.png";
 export const assets = {
   a1,
   a2,
@@ -22,5 +22,5 @@ export const assets = {
   a9,
   a10,
   a11,
-  op
+  op,
 };

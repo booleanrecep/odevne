@@ -40,7 +40,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App data={data} />
+    <App data={data} />,
   </ThemeProvider>,
   document.getElementById("root")
 );
