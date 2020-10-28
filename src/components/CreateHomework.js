@@ -44,6 +44,8 @@ class CreateHomework extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.close = props.closeIt;
+    this.popcreated = props.handlePopcreated;
+    // this.checked = props.checked;
   }
 
   handleSubmit = (e) => {
@@ -60,7 +62,7 @@ class CreateHomework extends React.Component {
     )}.${bt.substring(0, 4)}`;
     this.newState.map((cls) => {
       cls.classroom === this.state.sinif
-        ? cls.homeworks.unshift(this.state)
+        ? (cls.homeworks.unshift(this.state), this.popcreated())
         : null;
     });
 
@@ -88,6 +90,8 @@ class CreateHomework extends React.Component {
   render() {
     const { openIt, closeIt, classes } = this.props;
     const { sinif, baslama, bitis, konu, odev } = this.state;
+    // console.log(this.checked)
+    // console.log(this.newState)
     return (
       <div>
         <Dialog
