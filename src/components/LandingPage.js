@@ -16,6 +16,9 @@ import chill from "../images/animations/lottie/chill.json";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import mountains from "../images/imgs/mountaines.png";
 import { assets } from "../images/svg/ecology/index";
+
+import PopCreated from "./PopCreated";
+
 const useStyles = makeStyles((theme) => ({
   title: {
     display: "flex",
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "10",
     [theme.breakpoints.down("sm")]: {
       top: "3.5em",
-      left: "40%",
+      left: "30%",
     },
   },
 }));
@@ -68,6 +71,7 @@ const LandingPage = () => {
                   </Button>
                 </Paper>
               </div>
+              {/* <PopCreated/> */}
             </Link>
           </Toolbar>
         </AppBar>

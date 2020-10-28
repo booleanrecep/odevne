@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip, Grid, Fab, Typography, withStyles } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TrDate from "tr-date";
 import Draggable from "react-draggable";
@@ -61,6 +61,7 @@ class App extends React.Component {
       openEdit: false,
       openCreate: false,
       activeDrags: 0,
+      checked: false,
     };
     this.handleClickOpenCreate = this.handleClickOpenCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -68,6 +69,7 @@ class App extends React.Component {
     this.onEditState = this.onEditState.bind(this);
     this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
     this.changeDateFormat = this.changeDateFormat.bind(this);
+    // this.handlePopcreated = this.handlePopcreated.bind(this);
   }
 
   handleClickOpenCreate = () => {
@@ -76,6 +78,14 @@ class App extends React.Component {
 
   handleClose = () => {
     this.setState({ openCreate: false, openEdit: false });
+  };
+  handlePopcreated = () => {
+    this.setState({ checked: true });
+    setTimeout(() => {
+      this.setState({
+        checked: false,
+      });
+    }, 3000);
   };
   changeDateFormat = (date) => {
     const cd = new TrDate(date);
@@ -175,10 +185,17 @@ class App extends React.Component {
     this.setState({ activeDrags: --this.state.activeDrags });
     return false;
   };
+  // handleCheck = () => {
+  //   this.setState({
+  //     checked:true
+  //   })
+  // };
 
   render() {
     const { classes } = this.props;
     const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    console.log(this.state.checked);
+
     return (
       <Router>
         <div>
@@ -192,6 +209,7 @@ class App extends React.Component {
               </Route>
               <Route exact path="/odevler">
                 <Appbar
+                  checked={this.state.checked}
                   INNER_WIDTH={INNER_WIDTH}
                   handleClickOpenCreate={this.handleClickOpenCreate}
                 />
@@ -238,14 +256,11 @@ class App extends React.Component {
                   return (
                     <Route path={`/odevler/${classroom}`}>
                       <Appbar
+                        checked={this.state.checked}
                         INNER_WIDTH={INNER_WIDTH}
                         handleClickOpenCreate={this.handleClickOpenCreate}
                       />
-                      <Grid
-                        container
-                        spacing={2}
-                        style={{ margin: "5em 0.5em 0 1em" }}
-                      >
+                      <Grid container spacing={2} style={{ marginTop: "5em" }}>
                         {homeworks &&
                           homeworks.map((homework) => (
                             <Homework
@@ -274,6 +289,7 @@ class App extends React.Component {
             </Switch>
 
             <CreateHomework
+              handlePopcreated={this.handlePopcreated}
               homeworkState={this.state.data}
               closeIt={this.handleClose}
               openIt={this.state.openCreate}
